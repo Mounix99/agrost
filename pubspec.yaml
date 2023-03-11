@@ -1,0 +1,31 @@
+name: agrost
+version: 1.0.0+1
+publish_to: none
+description: A new Flutter project.
+environment: 
+  sdk: '>=2.19.3 <3.0.0'
+
+dependencies: 
+  cupertino_icons: ^1.0.5
+  flutter: 
+    sdk: flutter
+
+  #inner packages
+  domain:
+    path: ./packages/domain
+
+  #Firebase scope
+  firebase_auth: ^4.2.10
+  firebase_core: ^2.7.1
+
+  #Other scope
+  get: 4.6.5
+
+dev_dependencies: 
+  flutter_lints: 2.0.1
+  flutter_test: 
+    sdk: flutter
+
+flutter: 
+  uses-material-design: true
+

@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "15198462790",
+    "project_id": "argost",
+    "storage_bucket": "argost.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15198462790:android:68cb5a6397640f5a93bb47",
+        "android_client_info": {
+          "package_name": "com.agrost.agrost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15198462790-45b1g1hiukd09mighsa6osamgimuun9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY4w6IzkWiubsFeGS2chftKR_Vuq52Auc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15198462790-45b1g1hiukd09mighsa6osamgimuun9d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "15198462790-7uetp9s5io7ud6grkpdhpoks3ipvkt4v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.agrostFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15198462790:android:9aa73512f817d5a093bb47",
+        "android_client_info": {
+          "package_name": "com.example.agrost_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15198462790-45b1g1hiukd09mighsa6osamgimuun9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY4w6IzkWiubsFeGS2chftKR_Vuq52Auc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15198462790-45b1g1hiukd09mighsa6osamgimuun9d.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "15198462790-7uetp9s5io7ud6grkpdhpoks3ipvkt4v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.agrostFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
