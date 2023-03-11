@@ -11,7 +11,9 @@ class SplashView extends GetView<SplashController> {
     final splashController = Get.find<SplashController>();
     return const Scaffold(
       body: Center(
-        child: FlutterLogo(),
+        child: FlutterLogo(
+          size: 80,
+        ),
       ),
     );
   }

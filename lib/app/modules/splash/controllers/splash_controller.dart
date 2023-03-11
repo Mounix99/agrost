@@ -13,12 +13,14 @@ class SplashController extends GetxController {
     super.onInit();
   }
 
-  checkUser() {
+  checkUser() async {
     _authService.user.listen((User? user) {
       if (user != null) {
-        Get.offNamed(Routes.HOME);
+        Future.delayed(const Duration(seconds: 3))
+          .then((value) => Get.offNamed(Routes.HOME));
     } else {
-        Get.offNamed(Routes.LOGIN);
+        Future.delayed(const Duration(seconds: 3))
+        .then((value) => Get.offNamed(Routes.LOGIN));
     }});
   }
 
