@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class GeneralBinding implements Bindings {
-
   GeneralBinding();
 
   @override
@@ -19,6 +18,4 @@ class GeneralBinding implements Bindings {
   void _initSingletons() {
     Get.put<FirebaseAuth>(FirebaseAuth.instance);
   }
-
-
 }

@@ -23,8 +23,7 @@ class LoginView extends GetView<LoginController> {
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: _checkAuth,
-                child: const Text("sign in with google"))
+            ElevatedButton(onPressed: _checkAuth, child: const Text("sign in with google"))
           ],
         ),
       ),
