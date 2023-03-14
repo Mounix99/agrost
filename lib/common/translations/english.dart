@@ -1,14 +1,11 @@
+import 'local_constructor.dart';
+
 class English {
-  Map<String, String> titles() => {"app_title": "AGROST"};
-
-  Map<String, String> subtitles() => {"app_subtitle": "Let's plant and grow"};
-
-  Map<String, String> get strings {
-    Map<String, String> allString = {};
-
-    allString.addAll(titles());
-    allString.addAll(subtitles());
-
-    return allString;
-  }
+  Map<String, String> get strings => LocaleConstructor(
+          appTitle: "AGROST",
+          appSubtitle: "Let's plant and grow",
+          bottomNavigationFields: 'Fields',
+          bottomNavigationPlants: 'Plants',
+          bottomNavigationProfile: 'Profile')
+      .toStringMap();
 }

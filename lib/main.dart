@@ -17,7 +17,7 @@ Future<void> main() async {
   );
   runApp(
     GetMaterialApp(
-      title: "app_title".tr,
+      title: "appTitle".tr,
       translations: LocaleString(),
       supportedLocales: const [
         Locale.fromSubtags(languageCode: 'en'),

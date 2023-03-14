@@ -1,14 +1,11 @@
+import 'package:agrost/common/translations/local_constructor.dart';
+
 class Ukrainian {
-  Map<String, String> titles() => {"app_title": "AGROST"};
-
-  Map<String, String> subtitles() => {"app_subtitle": "Саджаймо та вирощуймо"};
-
-  Map<String, String> get strings {
-    Map<String, String> allString = {};
-
-    allString.addAll(titles());
-    allString.addAll(subtitles());
-
-    return allString;
-  }
+  Map<String, String> get strings => LocaleConstructor(
+          appTitle: "AGROST",
+          appSubtitle: "Саджаймо і вирощуймо",
+          bottomNavigationFields: 'Ділянки',
+          bottomNavigationPlants: 'Рослини',
+          bottomNavigationProfile: 'Профіль')
+      .toStringMap();
 }
