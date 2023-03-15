@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -18,12 +19,7 @@ class ProfileView extends GetView<ProfileController> {
                 title: Text(user.displayName ?? ""),
                 centerTitle: true,
               ),
-              body: const Center(
-                child: Text(
-                  'ProfileViewView is working',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
+              body: _profileContent(user),
             );
           } else {
             return Scaffold(
@@ -37,5 +33,13 @@ class ProfileView extends GetView<ProfileController> {
             );
           }
         });
+  }
+
+  Widget _profileContent(User user) {
+    return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: [CircleAvatar(foregroundImage: NetworkImage(user.photoURL ?? ""), radius: 130)],
+    );
   }
 }
