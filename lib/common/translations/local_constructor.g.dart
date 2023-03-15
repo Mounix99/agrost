@@ -12,6 +12,7 @@ LocaleConstructor _$LocaleConstructorFromJson(Map<String, dynamic> json) => Loca
       bottomNavigationProfile: json['bottomNavigationProfile'] as String,
       appTitle: json['appTitle'] as String,
       appSubtitle: json['appSubtitle'] as String,
+      profileTitle: json['profileTitle'] as String,
     );
 
 Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <String, dynamic>{
@@ -20,4 +21,5 @@ Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <S
       'bottomNavigationFields': instance.bottomNavigationFields,
       'bottomNavigationPlants': instance.bottomNavigationPlants,
       'bottomNavigationProfile': instance.bottomNavigationProfile,
+      'profileTitle': instance.profileTitle,
     };

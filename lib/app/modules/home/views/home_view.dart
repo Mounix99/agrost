@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
-import '../fields/views/fields_view.dart';
-import '../plants/views/plants_view.dart';
-import '../profile/views/profile_view.dart';
+import 'fields_view.dart';
+import 'plants_view.dart';
+import 'profile_view.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);

@@ -11,12 +11,15 @@ class LocaleConstructor {
   final String bottomNavigationPlants;
   final String bottomNavigationProfile;
 
+  final String profileTitle;
+
   LocaleConstructor(
       {required this.bottomNavigationFields,
       required this.bottomNavigationPlants,
       required this.bottomNavigationProfile,
       required this.appTitle,
-      required this.appSubtitle});
+      required this.appSubtitle,
+      required this.profileTitle});
 
   factory LocaleConstructor.fromJson(Map<String, dynamic> json) => _$LocaleConstructorFromJson(json);
 

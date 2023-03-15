@@ -1,10 +1,10 @@
-import 'package:domain/repositories/auth_repository.dart';
+import 'package:domain/repositories/user_repository.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  late AuthService _authService;
+  late UserService _authService;
 
   @override
   void onInit() {

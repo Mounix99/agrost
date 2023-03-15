@@ -6,6 +6,7 @@ class English {
           appSubtitle: "Let's plant and grow",
           bottomNavigationFields: 'Fields',
           bottomNavigationPlants: 'Plants',
-          bottomNavigationProfile: 'Profile')
+          bottomNavigationProfile: 'Profile',
+          profileTitle: 'loading your profile')
       .toStringMap();
 }
