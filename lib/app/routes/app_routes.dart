@@ -8,9 +8,9 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const LOGIN = _Paths.LOGIN;
   static const SPLASH = _Paths.SPLASH;
-  static const PROFILE_VIEW = _Paths.HOME + _Paths.PROFILE_VIEW;
-  static const PLANTS_VIEW = _Paths.HOME + _Paths.PLANTS_VIEW;
-  static const FIELDS_VIEW = _Paths.HOME + _Paths.FIELDS_VIEW;
+  static const PROFILE = _Paths.HOME + _Paths.PROFILE;
+  static const PLANTS = _Paths.HOME + _Paths.PLANTS;
+  static const FIELDS = _Paths.HOME + _Paths.FIELDS;
 }
 
 abstract class _Paths {
@@ -18,7 +18,7 @@ abstract class _Paths {
   static const HOME = '/home';
   static const LOGIN = '/login';
   static const SPLASH = '/splash';
-  static const PROFILE_VIEW = '/profile-view';
-  static const PLANTS_VIEW = '/plants-view';
-  static const FIELDS_VIEW = '/fields-view';
+  static const PROFILE = '/profile';
+  static const PLANTS = '/plants';
+  static const FIELDS = '/fields';
 }

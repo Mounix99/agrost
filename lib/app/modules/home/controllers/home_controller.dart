@@ -15,11 +15,11 @@ enum HomeTabs {
     final HomeTabs tab = HomeTabs.values.elementAt(index);
     switch (tab) {
       case HomeTabs.fields:
-        return Routes.FIELDS_VIEW;
+        return Routes.FIELDS;
       case HomeTabs.plants:
-        return Routes.PLANTS_VIEW;
+        return Routes.PLANTS;
       case HomeTabs.profile:
-        return Routes.PROFILE_VIEW;
+        return Routes.PROFILE;
     }
   }
 }

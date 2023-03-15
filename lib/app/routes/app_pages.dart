@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
 
 import '../modules/home/bindings/home_binding.dart';
-import '../modules/home/fields_view/bindings/fields_view_binding.dart';
-import '../modules/home/fields_view/views/fields_view_view.dart';
-import '../modules/home/plants_view/bindings/plants_view_binding.dart';
-import '../modules/home/plants_view/views/plants_view_view.dart';
-import '../modules/home/profile_view/bindings/profile_view_binding.dart';
-import '../modules/home/profile_view/views/profile_view_view.dart';
+import '../modules/home/fields/bindings/fields_binding.dart';
+import '../modules/home/fields/views/fields_view.dart';
+import '../modules/home/plants/bindings/plants_binding.dart';
+import '../modules/home/plants/views/plants_view.dart';
+import '../modules/home/profile/bindings/profile_binding.dart';
+import '../modules/home/profile/views/profile_view.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
@@ -28,26 +28,19 @@ class AppPages {
       binding: HomeBinding(),
       children: [
         GetPage(
-          name: _Paths.PROFILE_VIEW,
+          name: _Paths.PROFILE,
           page: () => const ProfileView(),
-          binding: ProfileViewBinding(),
-          children: [
-            GetPage(
-              name: _Paths.PROFILE_VIEW,
-              page: () => const ProfileView(),
-              binding: ProfileViewBinding(),
-            ),
-          ],
+          binding: ProfileBinding(),
         ),
         GetPage(
-          name: _Paths.PLANTS_VIEW,
+          name: _Paths.PLANTS,
           page: () => const PlantsView(),
-          binding: PlantsViewBinding(),
+          binding: PlantsBinding(),
         ),
         GetPage(
-          name: _Paths.FIELDS_VIEW,
+          name: _Paths.FIELDS,
           page: () => const FieldsView(),
-          binding: FieldsViewBinding(),
+          binding: FieldsBinding(),
         ),
       ],
     ),

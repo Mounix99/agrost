@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class PlantsViewController extends GetxController {
-  //TODO: Implement PlantsViewController
+class ProfileController extends GetxController {
+  //TODO: Implement ProfileViewController
 
   final count = 0.obs;
 

@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/plants_view_controller.dart';
+import '../controllers/profile_controller.dart';
 
-class PlantsView extends GetView<PlantsViewController> {
-  const PlantsView({Key? key}) : super(key: key);
+class ProfileView extends GetView<ProfileController> {
+  const ProfileView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PlantsViewView'),
+        title: const Text('ProfileViewView'),
         centerTitle: true,
       ),
       body: const Center(
         child: Text(
-          'PlantsViewView is working',
+          'ProfileViewView is working',
           style: TextStyle(fontSize: 20),
         ),
       ),

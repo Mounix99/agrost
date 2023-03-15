@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/fields_view_controller.dart';
+import '../controllers/fields_controller.dart';
 
 class FieldsView extends GetView<FieldsViewController> {
   const FieldsView({Key? key}) : super(key: key);

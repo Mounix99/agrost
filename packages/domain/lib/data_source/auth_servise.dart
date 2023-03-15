@@ -7,12 +7,16 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-class AuthService {
-  late final FirebaseAuth _auth;
-  AuthService(this._auth);
+import '../repositories/auth_repository.dart';
 
+class FirebaseAuthService extends AuthService {
+  late final FirebaseAuth _auth;
+  FirebaseAuthService(this._auth);
+
+  @override
   Stream<User?> get user => _auth.authStateChanges();
 
+  @override
   String? get userId => _auth.currentUser?.uid;
 
   Future getUserData() async {
@@ -27,6 +31,7 @@ class AuthService {
     }
   }
 
+  @override
   Future<UserCredential?> signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -65,6 +70,7 @@ class AuthService {
     return digest.toString();
   }
 
+  @override
   Future<UserCredential> signInWithApple() async {
     // To prevent replay attacks with the credential returned from Apple, we
     // include a nonce in the credential request. When signing in with
@@ -94,6 +100,7 @@ class AuthService {
   }
 
   //sign out
+  @override
   Future signOut() async {
     try {
       return await _auth.signOut();
@@ -105,6 +112,7 @@ class AuthService {
     }
   }
 
+  @override
   Future userPhotoUpdate(String url) async {
     try {
       User user = _auth.currentUser!;
@@ -116,6 +124,7 @@ class AuthService {
     }
   }
 
+  @override
   Future userDisplayNameUpdate(String nickName) async {
     try {
       User user = _auth.currentUser!;
@@ -127,6 +136,7 @@ class AuthService {
     }
   }
 
+  @override
   Future userDelete() async {
     try {
       await FirebaseAuth.instance.currentUser!.delete();

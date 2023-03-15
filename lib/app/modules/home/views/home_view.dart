@@ -1,11 +1,11 @@
-import 'package:agrost/app/modules/home/fields_view/views/fields_view_view.dart';
-import 'package:agrost/app/modules/home/plants_view/views/plants_view_view.dart';
-import 'package:agrost/app/modules/home/profile_view/views/profile_view_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
+import '../fields/views/fields_view.dart';
+import '../plants/views/plants_view.dart';
+import '../profile/views/profile_view.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
