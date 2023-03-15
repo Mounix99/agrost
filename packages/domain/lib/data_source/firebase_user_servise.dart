@@ -7,11 +7,11 @@ import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../repositories/auth_repository.dart';
+import '../repositories/user_repository.dart';
 
-class FirebaseAuthService extends AuthService {
+class FirebaseUserService extends UserService {
   late final FirebaseAuth _auth;
-  FirebaseAuthService(this._auth);
+  FirebaseUserService(this._auth);
 
   @override
   Stream<User?> get user => _auth.authStateChanges();

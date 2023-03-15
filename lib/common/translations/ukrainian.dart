@@ -6,6 +6,7 @@ class Ukrainian {
           appSubtitle: "Саджаймо і вирощуймо",
           bottomNavigationFields: 'Ділянки',
           bottomNavigationPlants: 'Рослини',
-          bottomNavigationProfile: 'Профіль')
+          bottomNavigationProfile: 'Профіль',
+          profileTitle: 'Завантажуемо профіль...')
       .toStringMap();
 }

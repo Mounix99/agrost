@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-abstract class AuthService {
+abstract class UserService {
   Stream<User?> get user;
 
   String? get userId;
