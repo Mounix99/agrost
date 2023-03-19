@@ -1,4 +1,4 @@
-import 'package:domain/data_source/firebase_user_servise.dart';
+import 'package:domain/firebase_data_source/firebase_user_servise.dart';
 import 'package:domain/repositories/user_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
