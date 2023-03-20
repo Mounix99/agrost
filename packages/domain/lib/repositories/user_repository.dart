@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../models/users_api_models/user_data_model.dart';
+
 abstract class UserService {
   Stream<User?> get user;
 
@@ -16,4 +18,10 @@ abstract class UserService {
   Future userDisplayNameUpdate(String nickName);
 
   Future userDelete();
+
+  Future<bool> checkUserData();
+
+  Future<UserDataModel?> getUserData({required String userDocId});
+
+  Future<bool> updateUserData({required String userDocId, required UserDataModel userDataModel});
 }

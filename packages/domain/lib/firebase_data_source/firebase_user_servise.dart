@@ -1,35 +1,28 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crypto/crypto.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../models/users_api_models/user_data_model.dart';
 import '../repositories/user_repository.dart';
 
 class FirebaseUserService extends UserService {
   late final FirebaseAuth _auth;
-  FirebaseUserService(this._auth);
+  late final FirebaseFirestore _store;
+  FirebaseUserService(this._auth, this._store);
+
+  CollectionReference get _usersStoreCollection => _store.collection('Users');
 
   @override
   Stream<User?> get user => _auth.authStateChanges();
 
   @override
   String? get userId => _auth.currentUser?.uid;
-
-  Future getUserData() async {
-    try {
-      User? user = _auth.currentUser;
-      return user;
-    } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
-      return null;
-    }
-  }
 
   @override
   Future<UserCredential?> signInWithGoogle() async {
@@ -139,13 +132,48 @@ class FirebaseUserService extends UserService {
   @override
   Future userDelete() async {
     try {
-      await FirebaseAuth.instance.currentUser!.delete();
+      await _auth.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
         if (kDebugMode) {
-          print('The user must reauthenticate before this operation can be executed.');
+          print('The user must re-authenticate before this operation can be executed.');
         }
       }
     }
+  }
+
+  @override
+  Future<bool> checkUserData() async {
+    final UserDataModel userDataModel = UserDataModel.fromFirebaseUser(_auth.currentUser);
+    final QuerySnapshot<Object?> snapshot =
+        await _usersStoreCollection.where("email", isEqualTo: userDataModel.email).get();
+    if (snapshot.docs.isEmpty) {
+      final DocumentReference<Object?> ref = await _usersStoreCollection.add(userDataModel.toJson());
+      return ref.get().then((value) async {
+        await updateUserData(userDocId: ref.id, userDataModel: userDataModel.copyWith(userDocId: ref.id));
+        return true;
+      }).catchError((e) => false);
+    } else {
+      return snapshot.docs.isNotEmpty;
+    }
+  }
+
+  @override
+  Future<UserDataModel?> getUserData({required String userDocId}) async {
+    final DocumentSnapshot<Object?> snapshot = await _usersStoreCollection.doc(userDocId).get();
+    if (snapshot.exists) {
+      return UserDataModel.fromJson(snapshot.data() as Map<String, dynamic>);
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  Future<bool> updateUserData({required String userDocId, required UserDataModel userDataModel}) {
+    return _usersStoreCollection
+        .doc(userDocId)
+        .update(userDataModel.toJson())
+        .then((value) => true)
+        .catchError((error) => false);
   }
 }
