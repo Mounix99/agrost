@@ -10,13 +10,14 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../models/users_api_models/user_data_model.dart';
 import '../repositories/user_repository.dart';
+import 'firebase_constants.dart';
 
 class FirebaseUserService extends UserService {
   late final FirebaseAuth _auth;
   late final FirebaseFirestore _store;
   FirebaseUserService(this._auth, this._store);
 
-  CollectionReference get _usersStoreCollection => _store.collection('Users');
+  CollectionReference get _usersStoreCollection => _store.collection(CollectionsNaming.users.serialize());
 
   @override
   Stream<User?> get user => _auth.authStateChanges();
@@ -169,8 +170,8 @@ class FirebaseUserService extends UserService {
   }
 
   @override
-  Future<bool> updateUserData({required String userDocId, required UserDataModel userDataModel}) {
-    return _usersStoreCollection
+  Future<bool> updateUserData({required String userDocId, required UserDataModel userDataModel}) async {
+    return await _usersStoreCollection
         .doc(userDocId)
         .update(userDataModel.toJson())
         .then((value) => true)

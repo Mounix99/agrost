@@ -5,6 +5,7 @@ part 'sector_model.g.dart';
 @JsonSerializable(fieldRename: FieldRename.none)
 class SectionModel {
   final String fieldDocId;
+  final String? sectionDocId;
   final String title;
   final String? plantIdentifier;
   final List<int>? plantStages;
@@ -21,7 +22,8 @@ class SectionModel {
       required this.startDate,
       required this.fieldDocId,
       required this.rows,
-      this.polygon});
+      this.polygon,
+      this.sectionDocId});
 
   factory SectionModel.fromJson(Map<String, dynamic> json) => _$SectionModelFromJson(json);
 
@@ -35,7 +37,8 @@ class SectionModel {
           int? currentPlantStage,
           DateTime? startDate,
           int? rows,
-          Map<String, Map<String, double>>? polygon}) =>
+          Map<String, Map<String, double>>? polygon,
+          String? sectionDocId}) =>
       SectionModel(
           fieldDocId: fieldDocId ?? this.fieldDocId,
           title: title ?? this.title,
@@ -44,5 +47,6 @@ class SectionModel {
           currentPlantStage: currentPlantStage ?? this.currentPlantStage,
           startDate: startDate ?? this.startDate,
           rows: rows ?? this.rows,
-          polygon: polygon ?? this.polygon);
+          polygon: polygon ?? this.polygon,
+          sectionDocId: sectionDocId ?? this.sectionDocId);
 }

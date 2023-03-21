@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:domain/firebase_data_source/firebase_constants.dart';
 import 'package:domain/models/fields_api_models/field_model.dart';
 import 'package:domain/models/fields_api_models/sector_model.dart';
 import 'package:domain/repositories/fields_repository.dart';
@@ -8,70 +9,97 @@ class FirebaseFieldsService extends FieldsService {
 
   FirebaseFieldsService(this._store);
 
+  CollectionReference<FieldModel> get _fieldsRef =>
+      _store.collection(CollectionsNaming.fields.serialize()).withConverter(
+          fromFirestore: (snapshot, _) => FieldModel.fromJson(snapshot.data()!),
+          toFirestore: (fieldModel, _) => fieldModel.toJson());
+
+  CollectionReference<SectionModel> sectionRef({required String fieldDocId}) =>
+      _fieldsRef.doc(fieldDocId).collection(CollectionsNaming.sections.serialize()).withConverter<SectionModel>(
+          fromFirestore: (snapshot, _) => SectionModel.fromJson(snapshot.data()!),
+          toFirestore: (sectionModel, _) => sectionModel.toJson());
+
   @override
-  Future<bool> addField({required FieldModel fieldModel}) {
-    // TODO: implement addField
-    throw UnimplementedError();
+  Future<bool> addField({required FieldModel fieldModel}) async {
+    final DocumentReference<Object?> field = await _fieldsRef.add(fieldModel);
+    return field.get().then((value) async {
+      await updateField(fieldDocId: field.id, fieldModel: fieldModel.copyWith(fieldDocId: field.id));
+      return true;
+    }).catchError((e) => false);
   }
 
   @override
-  Future<bool> addSection({required SectionModel sectionModel}) {
-    // TODO: implement addSection
-    throw UnimplementedError();
+  Future<bool> updateField({required String fieldDocId, required FieldModel fieldModel}) async {
+    return await _fieldsRef
+        .doc(fieldDocId)
+        .update(fieldModel.toJson())
+        .then((value) => true)
+        .catchError((error) => false);
   }
 
   @override
-  Future<bool> deleteField({required String fieldDocId}) {
-    // TODO: implement deleteField
-    throw UnimplementedError();
+  Future<bool> deleteField({required String fieldDocId}) async {
+    return await _fieldsRef.doc(fieldDocId).delete().then((value) => true).catchError((error) => false);
   }
 
   @override
-  Future<bool> deleteSection({required String fieldDocId, required String sectionDocId}) {
-    // TODO: implement deleteSection
-    throw UnimplementedError();
+  Future<FieldModel?> getFieldInfo({required String fieldDocId}) async {
+    final DocumentSnapshot<FieldModel> snapshot = await _fieldsRef.doc(fieldDocId).get();
+    return snapshot.data();
   }
 
   @override
-  Future<FieldModel> getFieldInfo({required String fieldDocId}) {
-    // TODO: implement getFieldInfo
-    throw UnimplementedError();
+  Future<List<FieldModel>> getListOfFields({required String userDocId}) async {
+    final fieldsRef = await _fieldsRef.where('userDocId', isEqualTo: userDocId).get().then((s) => s.docs);
+    return fieldsRef.map((e) => e.data()).toList();
   }
 
   @override
-  Future<List<FieldModel>> getListOfFields({required String userDocId}) {
-    // TODO: implement getListOfFields
-    throw UnimplementedError();
+  Future<List<SectionModel>> getListOfSections({required String fieldDocId}) async {
+    List<QueryDocumentSnapshot<SectionModel>> fields =
+        await sectionRef(fieldDocId: fieldDocId).get().then((s) => s.docs);
+    return fields.map((e) => e.data()).toList();
   }
 
   @override
-  Future<List<SectionModel>> getListOfSections({required String fieldDocId}) {
-    // TODO: implement getListOfSections
-    throw UnimplementedError();
+  Future<SectionModel?> getSectionInfo({required String fieldDocId, required String sectionDocId}) async {
+    DocumentSnapshot<SectionModel> section = await sectionRef(fieldDocId: fieldDocId).doc(sectionDocId).get();
+    return section.data();
   }
 
   @override
-  Future<SectionModel> getSectionInfo({required String fieldDocId, required String sectionDocId}) {
-    // TODO: implement getSectionInfo
-    throw UnimplementedError();
+  Future<bool> deleteSection({required String fieldDocId, required String sectionDocId}) async {
+    return await sectionRef(fieldDocId: fieldDocId)
+        .doc(sectionDocId)
+        .delete()
+        .then((value) => true)
+        .catchError((error) => false);
   }
 
   @override
-  Future<bool> splitSection(
-      {required String fieldDocId, required String sectionDocId, required SectionModel sectionModel}) {
-    // TODO: implement splitSection
-    throw UnimplementedError();
+  Future<bool> updateSection({required String sectionDocId, required SectionModel sectionModel}) async {
+    return await sectionRef(fieldDocId: sectionModel.fieldDocId)
+        .doc(sectionDocId)
+        .update(sectionModel.toJson())
+        .then((value) => true)
+        .catchError((error) => false);
   }
 
   @override
-  Future<bool> updateField({required FieldModel fieldModel}) {
-    // TODO: implement updateField
-    throw UnimplementedError();
+  Future<bool> addSection({required SectionModel sectionModel}) async {
+    DocumentReference<SectionModel> section = await sectionRef(fieldDocId: sectionModel.fieldDocId).add(sectionModel);
+    return section.get().then((value) async {
+      await updateSection(sectionDocId: section.id, sectionModel: sectionModel.copyWith(fieldDocId: section.id));
+      return true;
+    }).catchError((e) => false);
   }
 
   @override
-  Future<bool> updateSection({required SectionModel sectionModel}) {
-    // TODO: implement updateSection
-    throw UnimplementedError();
+  Future<bool> splitSection({required SectionModel sectionModel}) async {
+    final bool updateOld = await updateSection(
+        sectionDocId: sectionModel.sectionDocId!,
+        sectionModel: sectionModel.copyWith(rows: (sectionModel.rows / 2).floor()));
+    final bool addNew = await addSection(sectionModel: sectionModel.copyWith(rows: (sectionModel.rows / 2).ceil()));
+    return updateOld && addNew;
   }
 }

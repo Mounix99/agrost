@@ -21,10 +21,12 @@ SectionModel _$SectionModelFromJson(Map<String, dynamic> json) => SectionModel(
               (k, e) => MapEntry(k, (e as num).toDouble()),
             )),
       ),
+      sectionDocId: json['sectionDocId'] as String?,
     );
 
 Map<String, dynamic> _$SectionModelToJson(SectionModel instance) => <String, dynamic>{
       'fieldDocId': instance.fieldDocId,
+      'sectionDocId': instance.sectionDocId,
       'title': instance.title,
       'plantIdentifier': instance.plantIdentifier,
       'plantStages': instance.plantStages,
