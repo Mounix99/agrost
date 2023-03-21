@@ -39,7 +39,10 @@ class ProfileView extends GetView<ProfileController> {
     return ListView(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      children: [CircleAvatar(foregroundImage: NetworkImage(user.photoURL ?? ""), radius: 130)],
+      children: [
+        ElevatedButton(onPressed: controller.logOut, child: const Text("LOG out")),
+        CircleAvatar(foregroundImage: NetworkImage(user.photoURL ?? ""), radius: 130)
+      ],
     );
   }
 }

@@ -1,7 +1,6 @@
 name: domain
 description: Domain layer
 version: 0.0.1
-homepage:
 
 environment:
   sdk: '>=2.19.4 <3.0.0'
@@ -11,15 +10,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-  firebase_auth: ^4.2.10
+  firebase_auth: ^4.3.0
+  cloud_firestore: ^4.4.5
   google_sign_in: 6.0.2
   sign_in_with_apple: 4.3.0
+  json_serializable: ^6.6.1
+  json_annotation: ^4.8.0
   crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
+  build_runner: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

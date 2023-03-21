@@ -15,7 +15,9 @@ class LoginController extends GetxController {
   Future<void> checkAuth() async {
     final credentials = await _authService.signInWithGoogle();
     if (credentials != null) {
-      Get.offNamed(Routes.HOME);
+      _authService
+          .checkUserData()
+          .then((value) => value ? Get.offNamed(Routes.HOME) : Get.snackbar("Error", "credentials are null"));
     } else {
       Get.snackbar("Error", "credentials are null");
     }
