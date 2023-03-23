@@ -4,17 +4,17 @@ import 'package:domain/models/fields_api_models/field_model.dart';
 import 'package:domain/models/fields_api_models/sector_model.dart';
 import 'package:domain/repositories/fields_repository.dart';
 
-class FirebaseFieldsService extends FieldsService {
+class FirebaseFieldsRepositoryImplementation extends FieldsRepository {
   late final FirebaseFirestore _store;
 
-  FirebaseFieldsService(this._store);
+  FirebaseFieldsRepositoryImplementation(this._store);
 
   CollectionReference<FieldModel> get _fieldsRef =>
       _store.collection(CollectionsNaming.fields.serialize()).withConverter(
           fromFirestore: (snapshot, _) => FieldModel.fromJson(snapshot.data()!),
           toFirestore: (fieldModel, _) => fieldModel.toJson());
 
-  CollectionReference<SectionModel> sectionRef({required String fieldDocId}) =>
+  CollectionReference<SectionModel> _sectionRef({required String fieldDocId}) =>
       _fieldsRef.doc(fieldDocId).collection(CollectionsNaming.sections.serialize()).withConverter<SectionModel>(
           fromFirestore: (snapshot, _) => SectionModel.fromJson(snapshot.data()!),
           toFirestore: (sectionModel, _) => sectionModel.toJson());
@@ -55,21 +55,26 @@ class FirebaseFieldsService extends FieldsService {
   }
 
   @override
+  Future<Query<FieldModel>> getUserFieldsCollection({required String userDocId}) async {
+    return _fieldsRef.where('userDocId', isEqualTo: userDocId);
+  }
+
+  @override
   Future<List<SectionModel>> getListOfSections({required String fieldDocId}) async {
     List<QueryDocumentSnapshot<SectionModel>> fields =
-        await sectionRef(fieldDocId: fieldDocId).get().then((s) => s.docs);
+        await _sectionRef(fieldDocId: fieldDocId).get().then((s) => s.docs);
     return fields.map((e) => e.data()).toList();
   }
 
   @override
   Future<SectionModel?> getSectionInfo({required String fieldDocId, required String sectionDocId}) async {
-    DocumentSnapshot<SectionModel> section = await sectionRef(fieldDocId: fieldDocId).doc(sectionDocId).get();
+    DocumentSnapshot<SectionModel> section = await _sectionRef(fieldDocId: fieldDocId).doc(sectionDocId).get();
     return section.data();
   }
 
   @override
   Future<bool> deleteSection({required String fieldDocId, required String sectionDocId}) async {
-    return await sectionRef(fieldDocId: fieldDocId)
+    return await _sectionRef(fieldDocId: fieldDocId)
         .doc(sectionDocId)
         .delete()
         .then((value) => true)
@@ -78,7 +83,7 @@ class FirebaseFieldsService extends FieldsService {
 
   @override
   Future<bool> updateSection({required String sectionDocId, required SectionModel sectionModel}) async {
-    return await sectionRef(fieldDocId: sectionModel.fieldDocId)
+    return await _sectionRef(fieldDocId: sectionModel.fieldDocId)
         .doc(sectionDocId)
         .update(sectionModel.toJson())
         .then((value) => true)
@@ -87,7 +92,7 @@ class FirebaseFieldsService extends FieldsService {
 
   @override
   Future<bool> addSection({required SectionModel sectionModel}) async {
-    DocumentReference<SectionModel> section = await sectionRef(fieldDocId: sectionModel.fieldDocId).add(sectionModel);
+    DocumentReference<SectionModel> section = await _sectionRef(fieldDocId: sectionModel.fieldDocId).add(sectionModel);
     return section.get().then((value) async {
       await updateSection(sectionDocId: section.id, sectionModel: sectionModel.copyWith(fieldDocId: section.id));
       return true;

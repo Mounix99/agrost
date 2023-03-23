@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
-  late UserService _authService;
+  late UserRepository _authService;
 
   @override
   void onInit() {

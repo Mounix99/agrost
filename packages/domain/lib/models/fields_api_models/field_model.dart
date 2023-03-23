@@ -1,25 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'field_model.g.dart';
+import '../../values_and_extentions.dart';
 
-enum SoilType {
-  @JsonValue("sandy")
-  sandy,
-  @JsonValue("sandy_loam")
-  sandyLoam,
-  @JsonValue("clay")
-  clay,
-  @JsonValue("loamy")
-  loamy,
-  @JsonValue("calcareous")
-  calcareous,
-  @JsonValue("peaty")
-  peaty,
-  @JsonValue("black_soil")
-  blackSoil,
-  @JsonValue("others")
-  others
-}
+part 'field_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.none)
 class FieldModel {
