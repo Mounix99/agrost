@@ -9,6 +9,8 @@ part of 'stage_model.dart';
 StageModel _$StageModelFromJson(Map<String, dynamic> json) => StageModel(
       plantDocId: json['plantDocId'] as String,
       title: json['title'] as String,
+      description: json['description'] as String?,
+      authorDocId: json['authorDocId'] as String,
       duration: json['duration'] == null ? null : Duration(microseconds: json['duration'] as int),
       stageDocId: json['stageDocId'] as String?,
     );
@@ -16,6 +18,8 @@ StageModel _$StageModelFromJson(Map<String, dynamic> json) => StageModel(
 Map<String, dynamic> _$StageModelToJson(StageModel instance) => <String, dynamic>{
       'plantDocId': instance.plantDocId,
       'title': instance.title,
+      'description': instance.description,
+      'authorDocId': instance.authorDocId,
       'duration': instance.duration?.inMicroseconds,
       'stageDocId': instance.stageDocId,
     };

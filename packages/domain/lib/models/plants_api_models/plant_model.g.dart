@@ -13,9 +13,12 @@ PlantModel _$PlantModelFromJson(Map<String, dynamic> json) => PlantModel(
       authorDocId: json['authorDocId'] as String,
       stagesLength: json['stagesLength'] as int?,
       soilTypes: (json['soilTypes'] as List<dynamic>).map((e) => $enumDecode(_$SoilTypeEnumMap, e)).toList(),
+      plantType: $enumDecode(_$PlantTypeEnumMap, json['plantType']),
       public: json['public'] as bool,
       timesAddedByUsers: json['timesAddedByUsers'] as int?,
       createDate: DateTime.parse(json['createDate'] as String),
+      lastUpdateDate: DateTime.parse(json['lastUpdateDate'] as String),
+      version: json['version'] as String,
       photoUrl: json['photoUrl'] as String?,
     );
 
@@ -26,9 +29,12 @@ Map<String, dynamic> _$PlantModelToJson(PlantModel instance) => <String, dynamic
       'authorDocId': instance.authorDocId,
       'stagesLength': instance.stagesLength,
       'soilTypes': instance.soilTypes.map((e) => _$SoilTypeEnumMap[e]!).toList(),
+      'plantType': _$PlantTypeEnumMap[instance.plantType]!,
       'public': instance.public,
       'timesAddedByUsers': instance.timesAddedByUsers,
       'createDate': instance.createDate.toIso8601String(),
+      'lastUpdateDate': instance.lastUpdateDate.toIso8601String(),
+      'version': instance.version,
       'photoUrl': instance.photoUrl,
     };
 
@@ -41,4 +47,27 @@ const _$SoilTypeEnumMap = {
   SoilType.peaty: 'peaty',
   SoilType.blackSoil: 'black_soil',
   SoilType.others: 'others',
+};
+
+const _$PlantTypeEnumMap = {
+  PlantType.trees: 'Trees',
+  PlantType.fruitTrees: 'Fruit trees',
+  PlantType.shrubs: 'Shrubs',
+  PlantType.vines: 'Vines',
+  PlantType.grasses: 'Grasses',
+  PlantType.ferns: 'Ferns',
+  PlantType.mosses: 'Mosses',
+  PlantType.algae: 'Algae',
+  PlantType.lichens: 'Lichens',
+  PlantType.succulents: 'Succulents',
+  PlantType.aquaticPlants: 'Aquatic plants',
+  PlantType.epiphytes: 'Epiphytes',
+  PlantType.annuals: 'Annuals',
+  PlantType.biennials: 'Biennials',
+  PlantType.perennials: 'Perennials',
+  PlantType.bulbs: 'Bulbs',
+  PlantType.cacti: 'Cacti',
+  PlantType.carnivorousPlants: 'Carnivorous plants',
+  PlantType.deciduousPlants: 'deciduousPlants',
+  PlantType.evergreenPlants: 'Evergreen plants',
 };

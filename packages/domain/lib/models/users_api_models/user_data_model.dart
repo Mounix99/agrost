@@ -10,9 +10,9 @@ class UserDataModel {
   final String firstName;
   final String? lastName;
   final String? email;
-  final List<int>? fieldsId;
-  final List<int>? createdPlantsId;
-  final List<int>? addedPlantsId;
+  final List<String>? fieldsId;
+  final List<String>? createdPlantsId;
+  final List<String>? currentPlantsId;
   final String? fcmDeviceIdentifier;
   final String paidPlan;
   final DateTime? lastPayment;
@@ -28,7 +28,7 @@ class UserDataModel {
       this.lastName,
       this.fieldsId,
       this.createdPlantsId,
-      this.addedPlantsId,
+      this.currentPlantsId,
       this.fcmDeviceIdentifier,
       this.companyName,
       this.companyId,
@@ -50,9 +50,9 @@ class UserDataModel {
     String? firstName,
     String? lastName,
     String? email,
-    List<int>? fieldsId,
-    List<int>? createdPlantsId,
-    List<int>? addedPlantsId,
+    List<String>? fieldsId,
+    List<String>? createdPlantsId,
+    List<String>? currentPlantsId,
     String? fcmDeviceIdentifier,
     String? paidPlan,
     DateTime? lastPayment,
@@ -67,7 +67,7 @@ class UserDataModel {
           email: email ?? this.email,
           fieldsId: fieldsId ?? this.fieldsId,
           createdPlantsId: createdPlantsId ?? this.createdPlantsId,
-          addedPlantsId: addedPlantsId ?? this.addedPlantsId,
+          currentPlantsId: currentPlantsId ?? this.currentPlantsId,
           fcmDeviceIdentifier: fcmDeviceIdentifier ?? this.fcmDeviceIdentifier,
           paidPlan: paidPlan ?? this.paidPlan,
           lastPayment: lastPayment ?? this.lastPayment,

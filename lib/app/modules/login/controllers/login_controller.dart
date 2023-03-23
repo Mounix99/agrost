@@ -4,18 +4,18 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  late UserService _authService;
+  late UserRepository _authRepository;
 
   @override
   void onInit() {
-    _authService = Get.find();
+    _authRepository = Get.find();
     super.onInit();
   }
 
   Future<void> checkAuth() async {
-    final credentials = await _authService.signInWithGoogle();
+    final credentials = await _authRepository.signInWithGoogle();
     if (credentials != null) {
-      _authService
+      _authRepository
           .checkUserData()
           .then((value) => value ? Get.offNamed(Routes.HOME) : Get.snackbar("Error", "credentials are null"));
     } else {

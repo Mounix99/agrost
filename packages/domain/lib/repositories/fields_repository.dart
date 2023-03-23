@@ -1,12 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/models/fields_api_models/field_model.dart';
 import 'package:domain/models/fields_api_models/sector_model.dart';
 
-abstract class FieldsService {
+abstract class FieldsRepository {
   Future<bool> addField({required FieldModel fieldModel});
 
   Future<bool> updateField({required String fieldDocId, required FieldModel fieldModel});
 
   Future<List<FieldModel>> getListOfFields({required String userDocId});
+
+  Future<Query<FieldModel>> getUserFieldsCollection({required String userDocId});
 
   Future<FieldModel?> getFieldInfo({required String fieldDocId});
 

@@ -12,15 +12,19 @@ import '../models/users_api_models/user_data_model.dart';
 import '../repositories/user_repository.dart';
 import 'firebase_constants.dart';
 
-class FirebaseUserService extends UserService {
+class FirebaseUserRepositoryImplementation extends UserRepository {
   late final FirebaseAuth _auth;
   late final FirebaseFirestore _store;
-  FirebaseUserService(this._auth, this._store);
+  FirebaseUserRepositoryImplementation(this._auth, this._store);
 
   CollectionReference get _usersStoreCollection => _store.collection(CollectionsNaming.users.serialize());
 
   @override
   Stream<User?> get user => _auth.authStateChanges();
+
+  @override
+  // TODO: implement currentUser
+  User? get currentUser => _auth.currentUser;
 
   @override
   String? get userId => _auth.currentUser?.uid;
@@ -157,6 +161,13 @@ class FirebaseUserService extends UserService {
     } else {
       return snapshot.docs.isNotEmpty;
     }
+  }
+
+  @override
+  Future<String> getCurrentUserDocId() async {
+    final QuerySnapshot<Object?> snapshot =
+        await _usersStoreCollection.where("email", isEqualTo: currentUser?.email).get();
+    return snapshot.docs.first.id;
   }
 
   @override

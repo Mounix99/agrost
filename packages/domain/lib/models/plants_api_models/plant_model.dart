@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../fields_api_models/field_model.dart';
+import '../../values_and_extentions.dart';
 
 part 'plant_model.g.dart';
 
@@ -12,9 +12,12 @@ class PlantModel {
   final String authorDocId;
   final int? stagesLength;
   final List<SoilType> soilTypes;
+  final PlantType plantType;
   final bool public;
   final int? timesAddedByUsers;
   final DateTime createDate;
+  final DateTime lastUpdateDate;
+  final String version;
   final String? photoUrl;
 
   PlantModel(
@@ -24,9 +27,12 @@ class PlantModel {
       required this.authorDocId,
       this.stagesLength,
       required this.soilTypes,
+      required this.plantType,
       required this.public,
       this.timesAddedByUsers,
       required this.createDate,
+      required this.lastUpdateDate,
+      required this.version,
       this.photoUrl});
 
   factory PlantModel.fromJson(Map<String, dynamic> json) => _$PlantModelFromJson(json);
@@ -40,9 +46,12 @@ class PlantModel {
           String? authorDocId,
           int? stagesLength,
           List<SoilType>? soilTypes,
+          PlantType? plantType,
           bool? public,
           int? timesAddedByUsers,
           DateTime? createDate,
+          DateTime? lastUpdateDate,
+          String? version,
           String? photoUrl}) =>
       PlantModel(
           plantDocId: plantDocId ?? this.plantDocId,
@@ -51,8 +60,11 @@ class PlantModel {
           authorDocId: authorDocId ?? this.authorDocId,
           stagesLength: stagesLength ?? this.stagesLength,
           soilTypes: soilTypes ?? this.soilTypes,
+          plantType: plantType ?? this.plantType,
           public: public ?? this.public,
           timesAddedByUsers: timesAddedByUsers ?? this.timesAddedByUsers,
           createDate: createDate ?? this.createDate,
-          photoUrl: photoUrl ?? this.photoUrl);
+          lastUpdateDate: lastUpdateDate ?? this.lastUpdateDate,
+          photoUrl: photoUrl ?? this.photoUrl,
+          version: version ?? this.version);
 }

@@ -6,18 +6,35 @@ part 'stage_model.g.dart';
 class StageModel {
   final String plantDocId;
   final String title;
+  final String? description;
+  final String authorDocId;
   final Duration? duration;
   final String? stageDocId;
 
-  StageModel({required this.plantDocId, required this.title, this.duration, this.stageDocId});
+  StageModel(
+      {required this.plantDocId,
+      required this.title,
+      this.description,
+      required this.authorDocId,
+      this.duration,
+      this.stageDocId});
 
   factory StageModel.fromJson(Map<String, dynamic> json) => _$StageModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$StageModelToJson(this);
 
-  StageModel copyWith({String? plantDocId, String? title, Duration? duration, String? stageDocId}) => StageModel(
-      plantDocId: plantDocId ?? this.plantDocId,
-      title: title ?? this.title,
-      duration: duration ?? this.duration,
-      stageDocId: stageDocId ?? this.stageDocId);
+  StageModel copyWith(
+          {String? plantDocId,
+          String? title,
+          String? description,
+          String? authorDocId,
+          Duration? duration,
+          String? stageDocId}) =>
+      StageModel(
+          plantDocId: plantDocId ?? this.plantDocId,
+          title: title ?? this.title,
+          description: description ?? this.description,
+          authorDocId: authorDocId ?? this.authorDocId,
+          duration: duration ?? this.duration,
+          stageDocId: stageDocId ?? this.stageDocId);
 }
