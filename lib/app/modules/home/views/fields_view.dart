@@ -12,7 +12,7 @@ class FieldsView extends GetView<FieldsViewController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FieldsViewView'),
+        title: Text('fieldsTitle'.tr),
         centerTitle: true,
       ),
       body: content(context),

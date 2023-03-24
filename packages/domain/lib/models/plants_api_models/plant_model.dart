@@ -12,6 +12,7 @@ class PlantModel {
   final String authorDocId;
   final int? stagesLength;
   final List<SoilType> soilTypes;
+  final List<String>? usesByUsersDocId;
   final PlantType plantType;
   final bool public;
   final int? timesAddedByUsers;
@@ -27,6 +28,7 @@ class PlantModel {
       required this.authorDocId,
       this.stagesLength,
       required this.soilTypes,
+      this.usesByUsersDocId,
       required this.plantType,
       required this.public,
       this.timesAddedByUsers,
@@ -46,6 +48,7 @@ class PlantModel {
           String? authorDocId,
           int? stagesLength,
           List<SoilType>? soilTypes,
+          List<String>? usesByUsersDocId,
           PlantType? plantType,
           bool? public,
           int? timesAddedByUsers,
@@ -60,6 +63,7 @@ class PlantModel {
           authorDocId: authorDocId ?? this.authorDocId,
           stagesLength: stagesLength ?? this.stagesLength,
           soilTypes: soilTypes ?? this.soilTypes,
+          usesByUsersDocId: usesByUsersDocId ?? this.usesByUsersDocId,
           plantType: plantType ?? this.plantType,
           public: public ?? this.public,
           timesAddedByUsers: timesAddedByUsers ?? this.timesAddedByUsers,

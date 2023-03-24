@@ -13,13 +13,24 @@ class LocaleConstructor {
 
   final String profileTitle;
 
-  LocaleConstructor(
-      {required this.bottomNavigationFields,
-      required this.bottomNavigationPlants,
-      required this.bottomNavigationProfile,
-      required this.appTitle,
-      required this.appSubtitle,
-      required this.profileTitle});
+  final String fieldsTitle;
+
+  final String plantsTitle;
+  final String myPlantsSubtitle;
+  final String marketPlantsSubtitle;
+
+  LocaleConstructor({
+    required this.bottomNavigationFields,
+    required this.bottomNavigationPlants,
+    required this.bottomNavigationProfile,
+    required this.appTitle,
+    required this.appSubtitle,
+    required this.profileTitle,
+    required this.fieldsTitle,
+    required this.plantsTitle,
+    required this.myPlantsSubtitle,
+    required this.marketPlantsSubtitle,
+  });
 
   factory LocaleConstructor.fromJson(Map<String, dynamic> json) => _$LocaleConstructorFromJson(json);
 

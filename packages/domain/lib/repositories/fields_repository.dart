@@ -9,7 +9,7 @@ abstract class FieldsRepository {
 
   Future<List<FieldModel>> getListOfFields({required String userDocId});
 
-  Future<Query<FieldModel>> getUserFieldsCollection({required String userDocId});
+  Query<FieldModel> getUserFieldsCollection({required String userDocId});
 
   Future<FieldModel?> getFieldInfo({required String fieldDocId});
 
@@ -20,6 +20,8 @@ abstract class FieldsRepository {
   Future<bool> updateSection({required String sectionDocId, required SectionModel sectionModel});
 
   Future<List<SectionModel>> getListOfSections({required String fieldDocId});
+
+  Query<SectionModel> getFieldsSectionsCollection({required String fieldDocId});
 
   Future<SectionModel?> getSectionInfo({required String fieldDocId, required String sectionDocId});
 
