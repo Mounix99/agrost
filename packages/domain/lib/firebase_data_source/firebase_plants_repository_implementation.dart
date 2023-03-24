@@ -105,4 +105,19 @@ class FirebasePlantsRepositoryImplementation extends PlantsRepository {
     }
     return plants;
   }
+
+  @override
+  Query<PlantModel> getMarketPlantsCollection() {
+    return _plantsRef.where('public', isEqualTo: true);
+  }
+
+  @override
+  Query<StageModel> getPlantStagesCollection({required String plantDocId}) {
+    return _stageRef(plantDocId: plantDocId).where('plantDocId', isEqualTo: plantDocId);
+  }
+
+  @override
+  Query<PlantModel> getMyPlantsCollection({required String userDocId}) {
+    return _plantsRef.where('usesByUsersDocId', arrayContains: userDocId);
+  }
 }

@@ -55,8 +55,13 @@ class FirebaseFieldsRepositoryImplementation extends FieldsRepository {
   }
 
   @override
-  Future<Query<FieldModel>> getUserFieldsCollection({required String userDocId}) async {
+  Query<FieldModel> getUserFieldsCollection({required String userDocId}) {
     return _fieldsRef.where('userDocId', isEqualTo: userDocId);
+  }
+
+  @override
+  Query<SectionModel> getFieldsSectionsCollection({required String fieldDocId}) {
+    return _sectionRef(fieldDocId: fieldDocId).where('fieldDocId', isEqualTo: fieldDocId);
   }
 
   @override

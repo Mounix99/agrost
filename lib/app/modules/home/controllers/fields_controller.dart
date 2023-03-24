@@ -18,8 +18,7 @@ class FieldsViewController extends GetxController {
 
   Future<String> get userDocId => _userRepository.getCurrentUserDocId();
 
-  Future<Query<FieldModel>> get fields async =>
-      await _fieldsRepository.getUserFieldsCollection(userDocId: await userDocId);
+  Future<Query<FieldModel>> get fields async => _fieldsRepository.getUserFieldsCollection(userDocId: await userDocId);
 
   Future<void> createMockField() async => _fieldsRepository.addField(
       fieldModel: FieldModel(
