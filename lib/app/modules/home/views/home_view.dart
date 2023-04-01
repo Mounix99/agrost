@@ -14,18 +14,25 @@ class HomeView extends GetView<HomeController> {
     return Obx(
       () => Scaffold(
         body: getBody(),
-        bottomNavigationBar: navigationBar(),
+        bottomNavigationBar: navigationBar(context),
       ),
     );
   }
 
-  Widget navigationBar() {
+  Widget navigationBar(BuildContext context) {
     return NavigationBar(
       selectedIndex: controller.selectedIndex.toInt(),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       onDestinationSelected: controller.updateIndex,
       destinations: [
-        NavigationDestination(icon: const Icon(Icons.list_outlined), label: "bottomNavigationFields".tr),
+        NavigationDestination(icon: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.list_outlined),
+            const SizedBox(width: 8),
+            if(controller.selectedIndex.toInt() == 0) Text("bottomNavigationFields".tr, style: Theme.of(context).textTheme.displayLarge)
+          ],
+        ), label: '',),
         NavigationDestination(icon: const Icon(Icons.energy_savings_leaf), label: "bottomNavigationPlants".tr),
         NavigationDestination(icon: const Icon(Icons.person_2), label: "bottomNavigationProfile".tr),
       ],

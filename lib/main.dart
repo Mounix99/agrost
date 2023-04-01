@@ -8,6 +8,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
 import 'app/routes/app_pages.dart';
+import 'common/theme.dart';
 import 'common/translations/stings.dart';
 import 'firebase_options.dart';
 
@@ -21,6 +22,7 @@ Future<void> main() async {
       child: GetMaterialApp(
         title: "appTitle".tr,
         translations: LocaleString(),
+        theme: generalTheme,
         supportedLocales: const [
           Locale.fromSubtags(languageCode: 'en'),
           Locale.fromSubtags(languageCode: 'uk'),
