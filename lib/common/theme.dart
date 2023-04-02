@@ -15,10 +15,9 @@ class DefinedColors {
   static const _onBg3 = Color(0xFFE6EAED);
 
   ///Accent
-  static const _green1 = Color(0xFFAEF416);
-  static const _green2 = Color(0xFFDBFB9A);
-  static const _green3 = Color(0xFFE0FB9B);
-  static const _green4 = Color(0xFFA2BF51);
+  static const _green1 = Color(0xFFDBFB9A);
+  static const _green2 = Color(0xFFD1FF5A);
+  static const _green3 = Color(0xFFAEF416);
 
   ///Highlight
   static const _purple = Color(0xFFEDEFFE);
@@ -27,34 +26,30 @@ class DefinedColors {
   static const _babyBlue = Color(0xFFE4FDFE);
 
   ///Functional
-  static const _red = Color(0xFFF05365);
-  static const _green = Color(0xFF00A896);
-  static const _yellow1 = Color(0xFFFBBC2B);
+  static const _error = Color(0xFFFF685F);
 }
 
 TextStyle get inter => GoogleFonts.inter();
 
 TextTheme get _textTheme => TextTheme(
       ///H
-      displayLarge: const TextStyle(fontSize: 24, height: 32, fontWeight: FontWeight.bold, fontFamily: "Futura"),
-      displayMedium: const TextStyle(fontSize: 20, height: 28, fontWeight: FontWeight.bold, fontFamily: "Futura"),
-      displaySmall: const TextStyle(fontSize: 16, height: 22, fontWeight: FontWeight.bold, fontFamily: "Futura"),
-      headlineMedium: const TextStyle(fontSize: 12, height: 16, fontWeight: FontWeight.bold, fontFamily: "Futura"),
+      displayLarge: const TextStyle(
+          fontSize: 24, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+      displayMedium: const TextStyle(
+          fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+      displaySmall: const TextStyle(
+          fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
 
       ///Titles
-      headlineSmall: const TextStyle(fontSize: 18, height: 24, fontWeight: FontWeight.w500, fontFamily: "Futura"),
-      titleLarge: const TextStyle(fontSize: 16, height: 22, fontWeight: FontWeight.w500, fontFamily: "Futura"),
+      titleLarge: const TextStyle(
+          fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+      titleMedium: const TextStyle(
+          fontSize: 18, fontWeight: FontWeight.w500, fontFamily: "Futura", color: DefinedColors._black1),
+      titleSmall: inter.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: DefinedColors._black1),
 
       ///Body
-      titleMedium: inter.copyWith(fontSize: 16, height: 20, fontWeight: FontWeight.w400),
-
-      ///Hint (not implemented yet)
-      titleSmall: inter.copyWith(fontSize: 12, height: 16, fontWeight: FontWeight.w400),
-
-      bodyLarge: const TextStyle(letterSpacing: 0, fontWeight: FontWeight.normal),
-      bodyMedium: const TextStyle(letterSpacing: 0, fontWeight: FontWeight.normal),
-      bodySmall: const TextStyle(color: DefinedColors._gray1),
-      labelLarge: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 0),
+      bodyMedium: inter.copyWith(fontSize: 16, fontWeight: FontWeight.w400, color: DefinedColors._black1),
+      bodySmall: inter.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: DefinedColors._black1),
     );
 
 FlexColorScheme _flexColorScheme({bool darkMode = false}) {
@@ -78,7 +73,42 @@ FlexColorScheme _flexColorScheme({bool darkMode = false}) {
 }
 
 ColorScheme get _lightColorScheme {
-  return ColorScheme.light(
+  return const ColorScheme.light(
+    /// Primary colors
+    primary: DefinedColors._black1,
+    onPrimary: DefinedColors._gray1,
+    primaryContainer: DefinedColors._gray2,
+    // onPrimaryContainer: ,
+
+    /// Secondary
+    secondary: DefinedColors._green1,
+    onSecondary: DefinedColors._green2,
+    secondaryContainer: DefinedColors._green3,
+    // onSecondaryContainer: ,
+
+    /// Tertiary.
+    tertiary: DefinedColors._purple,
+    onTertiary: DefinedColors._yellow,
+    tertiaryContainer: DefinedColors._pink,
+    onTertiaryContainer: DefinedColors._babyBlue,
+
+    /// Surfaces
+    surface: DefinedColors._bg,
+    onSurface: DefinedColors._onBg1,
+    surfaceVariant: DefinedColors._onBg2,
+    onSurfaceVariant: DefinedColors._onBg3,
+    error: DefinedColors._error,
+    // background: ,
+    // onBackground: ,
+    //
+    // ///Other
+    // outline: ,
+    // onError:
+  );
+}
+
+ColorScheme get _darkColorScheme {
+  return const ColorScheme.dark(
       //
       // /// Primary colors
       // primary: ,
@@ -110,43 +140,7 @@ ColorScheme get _lightColorScheme {
       // ///Other
       // outline: ,
       // onError:
-  );
-}
-
-ColorScheme get _darkColorScheme {
-  return const ColorScheme.dark(
-    //
-    // /// Primary colors
-    // primary: ,
-    // onPrimary: ,
-    // primaryContainer: ,
-    // onPrimaryContainer: ,
-    //
-    // /// Secondary
-    // secondary: ,
-    // onSecondary: ,
-    // secondaryContainer: ,
-    // onSecondaryContainer: ,
-    //
-    // /// Tertiary.
-    // tertiary: ,
-    // onTertiary: ,
-    // tertiaryContainer: ,
-    // onTertiaryContainer: ,
-    //
-    // /// Surfaces
-    // surface: ,
-    // onSurface: ,
-    // surfaceVariant: ,
-    // onSurfaceVariant: ,
-    // error: ,
-    // background: ,
-    // onBackground: ,
-    //
-    // ///Other
-    // outline: ,
-    // onError:
-  );
+      );
 }
 
 ThemeData get generalTheme => _subThemes(_flexColorScheme());
@@ -155,10 +149,11 @@ ThemeData _subThemes(FlexColorScheme flexColorScheme) {
   final themeData = flexColorScheme.toTheme;
   final colorScheme = flexColorScheme.toScheme;
   return themeData.copyWith(
+    appBarTheme:
+        AppBarTheme(titleTextStyle: themeData.textTheme.displayLarge, centerTitle: false, color: colorScheme.surface),
     navigationBarTheme: NavigationBarThemeData(
-      surfaceTintColor: Colors.white,
-      indicatorColor: DefinedColors._onBg1,
-      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide
-    )
+        surfaceTintColor: colorScheme.surface,
+        indicatorColor: DefinedColors._onBg1,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide),
   );
 }

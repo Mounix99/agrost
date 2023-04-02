@@ -17,7 +17,6 @@ class ProfileView extends GetView<ProfileController> {
             return Scaffold(
               appBar: AppBar(
                 title: Text(user.displayName ?? ""),
-                centerTitle: true,
               ),
               body: _profileContent(user),
             );
@@ -25,7 +24,6 @@ class ProfileView extends GetView<ProfileController> {
             return Scaffold(
               appBar: AppBar(
                 title: Text('profileTitle'.tr),
-                centerTitle: true,
               ),
               body: const Center(
                 child: CircularProgressIndicator(),
