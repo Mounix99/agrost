@@ -13,7 +13,6 @@ class FieldsView extends GetView<FieldsViewController> {
     return Scaffold(
       appBar: AppBar(
         title: Text('fieldsTitle'.tr),
-        centerTitle: true,
       ),
       body: content(context),
       floatingActionButton: fab(),

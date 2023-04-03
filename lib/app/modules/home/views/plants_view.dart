@@ -1,3 +1,5 @@
+import 'package:agrost/common/styles/plant_icons.dart';
+import 'package:agrost/common/widgets/secondary_bar.dart';
 import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +13,21 @@ class PlantsView extends GetView<PlantsController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('plantsTitle'.tr),
-        centerTitle: true,
-        bottom: TabBar(
-          controller: controller.tabController,
-          tabs: controller.plantTabs,
+        title: Row(
+          children: [
+            Text('plantsTitle'.tr),
+            Icon(
+              PlantIcons.plant,
+              color: Theme.of(context).colorScheme.primary,
+            )
+          ],
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(38),
+          child: SecondaryTabBar(
+            tabs: controller.plantTabs,
+            controller: controller.tabController,
+          ),
         ),
       ),
       floatingActionButton: Row(

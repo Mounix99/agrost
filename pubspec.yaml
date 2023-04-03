@@ -17,15 +17,14 @@ dependencies:
     path: ./packages/domain
 
   #Firebase scope
-  firebase_auth: ^4.3.0
-  firebase_core: ^2.8.0
-  cloud_firestore: ^4.4.5
-  firebase_ui_firestore: ^1.2.10
+  firebase_auth: ^4.4.0
+  firebase_core: ^2.9.0
+  cloud_firestore: ^4.5.0
+  firebase_ui_firestore: ^1.3.0
 
   #design packages
   google_fonts: ^4.0.3
   flex_color_scheme: ^6.1.2
-  antdesign_icons: ^0.0.3
   antd_mobile: ^0.1.0
 
   #Other scope
@@ -43,6 +42,9 @@ dev_dependencies:
 
 flutter:
   fonts:
+    - family: PlantIcons
+      fonts:
+        - asset: fonts/PlantIcons.ttf
     - family: Futura
       fonts:
         - asset: fonts/Futura-Bold.ttf

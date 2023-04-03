@@ -1,4 +1,6 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class DefinedColors {
   ///Primary
@@ -13,29 +15,145 @@ class DefinedColors {
   static const _onBg3 = Color(0xFFE6EAED);
 
   ///Accent
-  static const _green1 = Color(0xFFAEF416);
-  static const _green2 = Color(0xFFDBFB9A);
-  static const _green3 = Color(0xFFE0FB9B);
-  static const _green4 = Color(0xFFA2BF51);
+  static const _green1 = Color(0xFFDBFB9A);
+  static const _green2 = Color(0xFFD1FF5A);
+  static const _green3 = Color(0xFFAEF416);
 
   ///Highlight
   static const _purple = Color(0xFFEDEFFE);
   static const _yellow = Color(0xFFF7FBD7);
   static const _pink = Color(0xFFF9F0FF);
   static const _babyBlue = Color(0xFFE4FDFE);
+
+  ///Functional
+  static const _error = Color(0xFFFF685F);
 }
 
-TextTheme get _textTheme => const TextTheme(
-      displayLarge: TextStyle(fontSize: 48, fontWeight: FontWeight.bold, fontFamily: "Futura"),
-      displayMedium: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-      displaySmall: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-      headlineMedium: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-      headlineSmall: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-      titleLarge: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-      titleSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-      bodyLarge: TextStyle(letterSpacing: 0, fontWeight: FontWeight.normal),
-      bodyMedium: TextStyle(letterSpacing: 0, fontWeight: FontWeight.normal),
-      bodySmall: TextStyle(color: DefinedColors._gray1),
-      labelLarge: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, letterSpacing: 0),
+TextStyle get inter => GoogleFonts.inter();
+
+TextTheme get _textTheme => TextTheme(
+      ///H
+      displayLarge: const TextStyle(
+          fontSize: 24, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+      displayMedium: const TextStyle(
+          fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+      displaySmall: const TextStyle(
+          fontSize: 16, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+
+      ///Titles
+      titleLarge: const TextStyle(
+          fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+      titleMedium: const TextStyle(
+          fontSize: 18, fontWeight: FontWeight.w500, fontFamily: "Futura", color: DefinedColors._black1),
+      titleSmall: inter.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: DefinedColors._black1),
+
+      ///Body
+      bodyMedium: inter.copyWith(fontSize: 16, fontWeight: FontWeight.w400, color: DefinedColors._black1),
+      bodySmall: inter.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: DefinedColors._black1),
     );
+
+FlexColorScheme _flexColorScheme({bool darkMode = false}) {
+  return FlexColorScheme(
+    colorScheme: darkMode ? _darkColorScheme : _lightColorScheme,
+    useMaterial3: true,
+    textTheme: _textTheme,
+    primaryTextTheme: _textTheme,
+    tabBarStyle: FlexTabBarStyle.forAppBar,
+    subThemesData: const FlexSubThemesData(
+        fabUseShape: false,
+        useTextTheme: true,
+        blendTextTheme: false,
+        inputDecoratorIsFilled: false,
+        defaultRadius: 4,
+        outlinedButtonRadius: 6,
+        elevatedButtonRadius: 6,
+        textButtonRadius: 6,
+        toggleButtonsRadius: 6),
+  );
+}
+
+ColorScheme get _lightColorScheme {
+  return const ColorScheme.light(
+    /// Primary colors
+    primary: DefinedColors._black1,
+    onPrimary: DefinedColors._gray1,
+    primaryContainer: DefinedColors._gray2,
+    // onPrimaryContainer: ,
+
+    /// Secondary
+    secondary: DefinedColors._green1,
+    onSecondary: DefinedColors._green2,
+    secondaryContainer: DefinedColors._green3,
+    // onSecondaryContainer: ,
+
+    /// Tertiary.
+    tertiary: DefinedColors._purple,
+    onTertiary: DefinedColors._yellow,
+    tertiaryContainer: DefinedColors._pink,
+    onTertiaryContainer: DefinedColors._babyBlue,
+
+    /// Surfaces
+    surface: DefinedColors._bg,
+    onSurface: DefinedColors._onBg1,
+    surfaceVariant: DefinedColors._onBg2,
+    onSurfaceVariant: DefinedColors._onBg3,
+    error: DefinedColors._error,
+    // background: ,
+    // onBackground: ,
+    //
+    // ///Other
+    // outline: ,
+    // onError:
+  );
+}
+
+ColorScheme get _darkColorScheme {
+  return const ColorScheme.dark(
+      //
+      // /// Primary colors
+      // primary: ,
+      // onPrimary: ,
+      // primaryContainer: ,
+      // onPrimaryContainer: ,
+      //
+      // /// Secondary
+      // secondary: ,
+      // onSecondary: ,
+      // secondaryContainer: ,
+      // onSecondaryContainer: ,
+      //
+      // /// Tertiary.
+      // tertiary: ,
+      // onTertiary: ,
+      // tertiaryContainer: ,
+      // onTertiaryContainer: ,
+      //
+      // /// Surfaces
+      // surface: ,
+      // onSurface: ,
+      // surfaceVariant: ,
+      // onSurfaceVariant: ,
+      // error: ,
+      // background: ,
+      // onBackground: ,
+      //
+      // ///Other
+      // outline: ,
+      // onError:
+      );
+}
+
+ThemeData get generalTheme => _subThemes(_flexColorScheme());
+
+ThemeData _subThemes(FlexColorScheme flexColorScheme) {
+  final themeData = flexColorScheme.toTheme;
+  final colorScheme = flexColorScheme.toScheme;
+  return themeData.copyWith(
+    appBarTheme:
+        AppBarTheme(titleTextStyle: themeData.textTheme.displayLarge, centerTitle: false, color: colorScheme.surface),
+    navigationBarTheme: NavigationBarThemeData(
+        surfaceTintColor: colorScheme.surface,
+        indicatorColor: DefinedColors._onBg1,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide),
+  );
+}
