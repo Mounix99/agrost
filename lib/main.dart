@@ -23,6 +23,7 @@ Future<void> main() async {
         title: "appTitle".tr,
         translations: LocaleString(),
         theme: generalTheme,
+        popGesture: true,
         supportedLocales: const [
           Locale.fromSubtags(languageCode: 'en'),
           Locale.fromSubtags(languageCode: 'uk'),

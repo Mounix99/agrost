@@ -11,8 +11,12 @@ class PlantsController extends GetxController with GetSingleTickerProviderStateM
   late UserRepository _userRepository;
   late TabController tabController;
   final List<Tab> plantTabs = <Tab>[
-    Tab(text: 'myPlantsSubtitle'.tr),
-    Tab(text: 'marketPlantsSubtitle'.tr),
+    Tab(
+      text: 'myPlantsSubtitle'.tr,
+    ),
+    Tab(
+      text: 'marketPlantsSubtitle'.tr,
+    ),
   ];
 
   @override
@@ -36,7 +40,7 @@ class PlantsController extends GetxController with GetSingleTickerProviderStateM
           description: "public plant",
           authorDocId: "FFFFFFFFFFFFF",
           soilTypes: [SoilType.blackSoil],
-          usesByUsersDocId: ["FFFFFFFFFFFFF"],
+          usesByUsersDocId: ["FFFFFFFFFFFFF", await userDocId],
           plantType: PlantType.cacti,
           public: true,
           createDate: DateTime.now(),
