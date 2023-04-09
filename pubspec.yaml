@@ -24,13 +24,14 @@ dependencies:
 
   #design packages
   google_fonts: ^4.0.3
-  flex_color_scheme: ^6.1.2
+  flex_color_scheme: ^7.0.1
   antd_mobile: ^0.1.0
 
   #Other scope
   get: 4.6.5
   json_serializable: ^6.6.1
   json_annotation: ^4.8.0
+  transparent_image: ^2.0.1
 
 
 dev_dependencies:

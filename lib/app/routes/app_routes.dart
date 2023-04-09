@@ -11,6 +11,7 @@ abstract class Routes {
   static const PROFILE = _Paths.HOME + _Paths.PROFILE;
   static const PLANTS = _Paths.HOME + _Paths.PLANTS;
   static const FIELDS = _Paths.HOME + _Paths.FIELDS;
+  static const ADD_PLANT = _Paths.ADD_PLANT;
 }
 
 abstract class _Paths {
@@ -21,4 +22,5 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const PLANTS = '/plants';
   static const FIELDS = '/fields';
+  static const ADD_PLANT = '/add-plant';
 }

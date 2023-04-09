@@ -1,4 +1,5 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -42,9 +43,9 @@ TextTheme get _textTheme => TextTheme(
 
       ///Titles
       titleLarge: const TextStyle(
-          fontSize: 12, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
+          fontSize: 18, fontWeight: FontWeight.bold, fontFamily: "Futura", color: DefinedColors._black1),
       titleMedium: const TextStyle(
-          fontSize: 18, fontWeight: FontWeight.w500, fontFamily: "Futura", color: DefinedColors._black1),
+          fontSize: 16, fontWeight: FontWeight.w500, fontFamily: "Futura", color: DefinedColors._black1),
       titleSmall: inter.copyWith(fontSize: 12, fontWeight: FontWeight.w400, color: DefinedColors._black1),
 
       ///Body
@@ -62,7 +63,8 @@ FlexColorScheme _flexColorScheme({bool darkMode = false}) {
     subThemesData: const FlexSubThemesData(
         fabUseShape: false,
         useTextTheme: true,
-        blendTextTheme: false,
+        blendTextTheme: true,
+        tintedDisabledControls: false,
         inputDecoratorIsFilled: false,
         defaultRadius: 4,
         outlinedButtonRadius: 6,
@@ -143,17 +145,47 @@ ColorScheme get _darkColorScheme {
       );
 }
 
-ThemeData get generalTheme => _subThemes(_flexColorScheme());
+ThemeData? _generalTheme;
+
+bool enableHotReloadTheme = kDebugMode;
+
+ThemeData? get generalTheme {
+  if (enableHotReloadTheme) {
+    return _subThemes(_flexColorScheme());
+  } else {
+    _generalTheme ??= _subThemes(_flexColorScheme());
+    return _generalTheme!;
+  }
+}
 
 ThemeData _subThemes(FlexColorScheme flexColorScheme) {
   final themeData = flexColorScheme.toTheme;
   final colorScheme = flexColorScheme.toScheme;
   return themeData.copyWith(
+    iconTheme: IconThemeData(color: colorScheme.primary, size: 24),
     appBarTheme:
         AppBarTheme(titleTextStyle: themeData.textTheme.displayLarge, centerTitle: false, color: colorScheme.surface),
     navigationBarTheme: NavigationBarThemeData(
         surfaceTintColor: colorScheme.surface,
         indicatorColor: DefinedColors._onBg1,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide),
+    tabBarTheme: TabBarTheme(
+        indicatorSize: TabBarIndicatorSize.tab,
+        labelStyle: themeData.textTheme.titleMedium,
+        unselectedLabelColor: colorScheme.onPrimary),
   );
+}
+
+Widget secondaryElevatedButton(BuildContext context, {required void Function()? onPressed, required Widget child}) {
+  return ElevatedButton(onPressed: onPressed, style: secondaryElevatedButtonStyle(context), child: child);
+}
+
+ButtonStyle secondaryElevatedButtonStyle(BuildContext context) {
+  final theme = Theme.of(context);
+  return ButtonStyle(
+      textStyle: MaterialStateTextStyle.resolveWith((states) => theme.textTheme.titleMedium!),
+      backgroundColor: MaterialStateProperty.all(theme.colorScheme.secondary),
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(vertical: 16, horizontal: 24)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(56))));
 }
