@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../values_and_extentions.dart';
+import '../../values_and_extensions.dart';
 
 part 'plant_model.g.dart';
 
@@ -8,7 +8,7 @@ part 'plant_model.g.dart';
 class PlantModel {
   final String? plantDocId;
   final String title;
-  final String description;
+  final String? description;
   final String authorDocId;
   final int? stagesLength;
   final List<SoilType> soilTypes;
@@ -24,7 +24,7 @@ class PlantModel {
   PlantModel(
       {this.plantDocId,
       required this.title,
-      required this.description,
+      this.description,
       required this.authorDocId,
       this.stagesLength,
       required this.soilTypes,

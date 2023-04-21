@@ -22,6 +22,8 @@ class Ukrainian {
           createPlantPlantNameHint: 'Картопля',
           createPlantPlantFamily: 'Рослинна сім’я',
           createPlantSoilType: 'Тип ґрунту',
+          createPlantDescription: 'Опис рослини',
+          createPlantDescriptionHint: 'Розкажіть більше о рослині',
           createPlantPublicPlant: 'Доступна для всіх рослина',
           createPlantPublicPlantSubtitle:
               'Ви можете публікувати свої рослини, щоб інші люди могли додавати їх до своїх списків.',

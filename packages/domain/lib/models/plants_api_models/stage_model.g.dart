@@ -11,7 +11,7 @@ StageModel _$StageModelFromJson(Map<String, dynamic> json) => StageModel(
       title: json['title'] as String,
       description: json['description'] as String?,
       authorDocId: json['authorDocId'] as String,
-      duration: json['duration'] == null ? null : Duration(microseconds: json['duration'] as int),
+      durationDelta: json['durationDelta'] as int?,
       stageDocId: json['stageDocId'] as String?,
     );
 
@@ -20,6 +20,6 @@ Map<String, dynamic> _$StageModelToJson(StageModel instance) => <String, dynamic
       'title': instance.title,
       'description': instance.description,
       'authorDocId': instance.authorDocId,
-      'duration': instance.duration?.inMicroseconds,
+      'durationDelta': instance.durationDelta,
       'stageDocId': instance.stageDocId,
     };

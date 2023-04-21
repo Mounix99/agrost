@@ -8,7 +8,7 @@ class StageModel {
   final String title;
   final String? description;
   final String authorDocId;
-  final Duration? duration;
+  final int? durationDelta;
   final String? stageDocId;
 
   StageModel(
@@ -16,7 +16,7 @@ class StageModel {
       required this.title,
       this.description,
       required this.authorDocId,
-      this.duration,
+      this.durationDelta,
       this.stageDocId});
 
   factory StageModel.fromJson(Map<String, dynamic> json) => _$StageModelFromJson(json);
@@ -28,13 +28,13 @@ class StageModel {
           String? title,
           String? description,
           String? authorDocId,
-          Duration? duration,
+          int? durationDelta,
           String? stageDocId}) =>
       StageModel(
           plantDocId: plantDocId ?? this.plantDocId,
           title: title ?? this.title,
           description: description ?? this.description,
           authorDocId: authorDocId ?? this.authorDocId,
-          duration: duration ?? this.duration,
+          durationDelta: durationDelta ?? this.durationDelta,
           stageDocId: stageDocId ?? this.stageDocId);
 }

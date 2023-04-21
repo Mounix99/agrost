@@ -32,6 +32,8 @@ class LocaleConstructor {
   final String createPlantPlantNameHint;
   final String createPlantPlantFamily;
   final String createPlantSoilType;
+  final String createPlantDescription;
+  final String createPlantDescriptionHint;
   final String createPlantPublicPlant;
   final String createPlantPublicPlantSubtitle;
   final String createPlantGrowthStages;
@@ -77,6 +79,8 @@ class LocaleConstructor {
     required this.createStageDescriptionHint,
     required this.createStageDuration,
     required this.createStageTimeFormat,
+    required this.createPlantDescription,
+    required this.createPlantDescriptionHint,
   });
 
   factory LocaleConstructor.fromJson(Map<String, dynamic> json) => _$LocaleConstructorFromJson(json);

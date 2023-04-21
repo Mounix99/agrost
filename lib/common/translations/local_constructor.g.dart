@@ -38,6 +38,8 @@ LocaleConstructor _$LocaleConstructorFromJson(Map<String, dynamic> json) => Loca
       createStageDescriptionHint: json['createStageDescriptionHint'] as String,
       createStageDuration: json['createStageDuration'] as String,
       createStageTimeFormat: json['createStageTimeFormat'] as String,
+      createPlantDescription: json['createPlantDescription'] as String,
+      createPlantDescriptionHint: json['createPlantDescriptionHint'] as String,
     );
 
 Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <String, dynamic>{
@@ -61,6 +63,8 @@ Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <S
       'createPlantPlantNameHint': instance.createPlantPlantNameHint,
       'createPlantPlantFamily': instance.createPlantPlantFamily,
       'createPlantSoilType': instance.createPlantSoilType,
+      'createPlantDescription': instance.createPlantDescription,
+      'createPlantDescriptionHint': instance.createPlantDescriptionHint,
       'createPlantPublicPlant': instance.createPlantPublicPlant,
       'createPlantPublicPlantSubtitle': instance.createPlantPublicPlantSubtitle,
       'createPlantGrowthStages': instance.createPlantGrowthStages,

@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/models/plants_api_models/stage_model.dart';
+import 'package:either_dart/either.dart';
 
 import '../models/plants_api_models/plant_model.dart';
 
 abstract class PlantsRepository {
-  Future<bool> addPlant({required PlantModel plantModel});
+  Future<Either<String, String?>> addPlant({required PlantModel plantModel});
 
   Future<bool> updatePlant({required String plantDocId, required PlantModel plantModel});
 
@@ -20,7 +21,7 @@ abstract class PlantsRepository {
 
   Future<bool> deletePlant({required String plantDocId});
 
-  Future<bool> addStage({required StageModel stageModel});
+  Future<Either<String, String?>> addStage({required StageModel stageModel});
 
   Future<bool> updateStage({required String stageDocId, required StageModel stageModel});
 

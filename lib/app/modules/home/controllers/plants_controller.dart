@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:domain/repositories/plants_repository.dart';
 import 'package:domain/repositories/user_repository.dart';
-import 'package:domain/values_and_extentions.dart';
+import 'package:domain/values_and_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

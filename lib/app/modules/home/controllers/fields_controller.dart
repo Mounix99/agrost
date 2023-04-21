@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/models/fields_api_models/field_model.dart';
 import 'package:domain/repositories/fields_repository.dart';
 import 'package:domain/repositories/user_repository.dart';
-import 'package:domain/values_and_extentions.dart';
+import 'package:domain/values_and_extensions.dart';
 import 'package:get/get.dart';
 
 class FieldsViewController extends GetxController {

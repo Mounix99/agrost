@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:domain/models/plants_api_models/stage_model.dart';
+import 'package:either_dart/either.dart';
 
 import '../repositories/plants_repository.dart';
 import 'firebase_constants.dart';
@@ -21,12 +22,18 @@ class FirebasePlantsRepositoryImplementation extends PlantsRepository {
           toFirestore: (stageModel, _) => stageModel.toJson());
 
   @override
-  Future<bool> addPlant({required PlantModel plantModel}) async {
+  Future<Either<String, String?>> addPlant({required PlantModel plantModel}) async {
     final DocumentReference<Object?> plant = await _plantsRef.add(plantModel);
-    return plant.get().then((value) async {
-      await updatePlant(plantDocId: plant.id, plantModel: plantModel.copyWith(plantDocId: plant.id));
-      return true;
-    }).catchError((e) => false);
+    try {
+      final updated = await updatePlant(plantDocId: plant.id, plantModel: plantModel.copyWith(plantDocId: plant.id));
+      if (updated) {
+        return Left(plant.id);
+      } else {
+        return const Right(null);
+      }
+    } catch (e) {
+      return Right(e.toString());
+    }
   }
 
   @override
@@ -62,12 +69,18 @@ class FirebasePlantsRepositoryImplementation extends PlantsRepository {
   }
 
   @override
-  Future<bool> addStage({required StageModel stageModel}) async {
+  Future<Either<String, String?>> addStage({required StageModel stageModel}) async {
     final DocumentReference<Object?> stage = await _stageRef(plantDocId: stageModel.plantDocId).add(stageModel);
-    return stage.get().then((value) async {
-      await updateStage(stageDocId: stage.id, stageModel: stageModel.copyWith(stageDocId: stage.id));
-      return true;
-    }).catchError((e) => false);
+    try {
+      final updated = await updateStage(stageDocId: stage.id, stageModel: stageModel.copyWith(stageDocId: stage.id));
+      if (updated) {
+        return Left(stage.id);
+      } else {
+        return const Right(null);
+      }
+    } catch (e) {
+      return Right(e.toString());
+    }
   }
 
   @override

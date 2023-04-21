@@ -9,7 +9,7 @@ part of 'plant_model.dart';
 PlantModel _$PlantModelFromJson(Map<String, dynamic> json) => PlantModel(
       plantDocId: json['plantDocId'] as String?,
       title: json['title'] as String,
-      description: json['description'] as String,
+      description: json['description'] as String?,
       authorDocId: json['authorDocId'] as String,
       stagesLength: json['stagesLength'] as int?,
       soilTypes: (json['soilTypes'] as List<dynamic>).map((e) => $enumDecode(_$SoilTypeEnumMap, e)).toList(),

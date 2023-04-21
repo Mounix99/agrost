@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../values_and_extentions.dart';
+import '../../values_and_extensions.dart';
 
 part 'field_model.g.dart';
 

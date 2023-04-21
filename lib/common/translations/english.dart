@@ -22,6 +22,8 @@ class English {
           createPlantPlantNameHint: 'Potato',
           createPlantPlantFamily: 'Plant family',
           createPlantSoilType: 'Soil type',
+          createPlantDescription: 'Plant description',
+          createPlantDescriptionHint: 'Tell more about this plant',
           createPlantPublicPlant: 'Public plant',
           createPlantPublicPlantSubtitle: 'You can publish your plants so other agro-people can add it to their lists.',
           createPlantGrowthStages: 'Growth stages',
