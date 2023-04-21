@@ -163,8 +163,11 @@ ThemeData _subThemes(FlexColorScheme flexColorScheme) {
   final colorScheme = flexColorScheme.toScheme;
   return themeData.copyWith(
     iconTheme: IconThemeData(color: colorScheme.primary, size: 24),
-    appBarTheme:
-        AppBarTheme(titleTextStyle: themeData.textTheme.displayLarge, centerTitle: false, color: colorScheme.surface),
+    appBarTheme: AppBarTheme(
+        titleTextStyle: themeData.textTheme.displayLarge,
+        iconTheme: IconThemeData(color: colorScheme.primary),
+        centerTitle: false,
+        color: colorScheme.surface),
     navigationBarTheme: NavigationBarThemeData(
         surfaceTintColor: colorScheme.surface,
         indicatorColor: DefinedColors._onBg1,

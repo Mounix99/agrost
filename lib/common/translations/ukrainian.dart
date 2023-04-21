@@ -12,7 +12,7 @@ class Ukrainian {
           plantsTitle: 'Рослини',
           myPlantsSubtitle: 'Мої рослини',
           marketPlantsSubtitle: 'Магазин рослин',
-          addPlant: 'Додай рослину',
+          addPlant: 'Створити рослину',
           createPlantAddPic: 'Додайте фото вашої рослини',
           createPlantAppBarTitle: 'Створити рослину',
           createPlantBasicInfo: 'Основна інформація',

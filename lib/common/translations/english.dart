@@ -12,7 +12,7 @@ class English {
           plantsTitle: 'Plants',
           myPlantsSubtitle: 'My plants',
           marketPlantsSubtitle: 'Plants market',
-          addPlant: 'Add plant',
+          addPlant: 'Create plant',
           createPlantAddPic: 'Add a pic of your plant',
           createPlantAppBarTitle: 'Create plant',
           createPlantBasicInfo: 'Basic information',

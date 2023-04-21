@@ -1,4 +1,5 @@
 import 'package:agrost/common/styles/plant_icons.dart';
+import 'package:agrost/common/widgets/hardcoded_icons.dart';
 import 'package:agrost/common/widgets/hero_tags.dart';
 import 'package:agrost/common/widgets/secondary_bar.dart';
 import 'package:domain/models/plants_api_models/plant_model.dart';
@@ -17,13 +18,7 @@ class PlantsView extends GetView<PlantsController> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          children: [
-            Text('plantsTitle'.tr),
-            Icon(
-              PlantIcons.plant,
-              color: Theme.of(context).colorScheme.primary,
-            )
-          ],
+          children: [Text('plantsTitle'.tr), const SizedBox(width: 5), plantIcon()],
         ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(38),
@@ -93,7 +88,7 @@ class PlantsView extends GetView<PlantsController> {
             leading: HeroImages().heroForPlantImage(context, plant),
             tileColor: publicAdded ? theme.colorScheme.secondary : theme.colorScheme.onSurface,
             contentPadding: const EdgeInsets.all(28),
-            trailing: Icon(publicAdded ? PlantIcons.tick : PlantIcons.rightSquare1, color: theme.colorScheme.primary),
+            trailing: Icon(publicAdded ? PlantIcons.tick : PlantIcons.add, color: theme.colorScheme.primary),
             title: Text(plant.title, style: theme.textTheme.titleLarge)),
       ),
     );

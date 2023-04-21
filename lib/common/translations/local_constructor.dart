@@ -39,6 +39,7 @@ class LocaleConstructor {
   final String createPlantGrowthStages;
   final String createPlantGrowthStagesSubtitle;
 
+  ///Create stage
   final String createStage;
   final String createStageName;
   final String createStageNameHint;

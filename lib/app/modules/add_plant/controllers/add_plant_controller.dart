@@ -96,6 +96,8 @@ class AddPlantController extends GetxController {
       for (var stage in stages) {
         _plantsRepository.addStage(stageModel: stage.copyWith(plantDocId: value.left));
       }
+    } else {
+      Get.showSnackbar(GetSnackBar(title: value.right));
     }
   }
 

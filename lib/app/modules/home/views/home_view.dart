@@ -1,4 +1,5 @@
 import 'package:agrost/common/styles/plant_icons.dart';
+import 'package:agrost/common/widgets/hardcoded_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -22,21 +23,20 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget navigationBar(BuildContext context) {
+    final theme = Theme.of(context);
     return NavigationBar(
       selectedIndex: controller.selectedIndex.toInt(),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       onDestinationSelected: controller.updateIndex,
       destinations: [
         _navigationWidget(context,
-            icon: PlantIcons.graph,
+            icon: Icon(PlantIcons.graph, color: theme.colorScheme.primary),
             title: "bottomNavigationFields".tr,
             selected: controller.selectedIndex.toInt() == 0),
         _navigationWidget(context,
-            icon: PlantIcons.plant,
-            title: "bottomNavigationPlants".tr,
-            selected: controller.selectedIndex.toInt() == 1),
+            icon: plantIcon(), title: "bottomNavigationPlants".tr, selected: controller.selectedIndex.toInt() == 1),
         _navigationWidget(context,
-            icon: PlantIcons.profileCircle,
+            icon: Icon(PlantIcons.profileCircle, color: theme.colorScheme.primary),
             title: "bottomNavigationProfile".tr,
             selected: controller.selectedIndex.toInt() == 2),
       ],
@@ -44,7 +44,7 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _navigationWidget(BuildContext context,
-      {required IconData icon, required String title, required bool selected}) {
+      {required Widget icon, required String title, required bool selected}) {
     final theme = Theme.of(context);
     return NavigationDestination(
       label: "",
@@ -55,7 +55,7 @@ class HomeView extends GetView<HomeController> {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(icon, color: theme.colorScheme.primary),
+                icon,
                 const SizedBox(width: 8),
                 if (selected)
                   Text(

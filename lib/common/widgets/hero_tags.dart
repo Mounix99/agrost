@@ -9,10 +9,10 @@ class HeroImages {
   Widget heroForPlantImage(BuildContext context, PlantModel plant) {
     final theme = Theme.of(context);
     late Widget image;
-    if (plant.photoUrl?.isNotEmpty ?? false) {
+    if (plant.photoBytes?.isNotEmpty ?? false) {
       image = FadeInImage.memoryNetwork(
         placeholder: kTransparentImage,
-        image: plant.photoUrl!,
+        image: plant.photoBytes!,
       );
     } else {
       image = CircleAvatar(

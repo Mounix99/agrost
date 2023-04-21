@@ -48,6 +48,10 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
+  assets:
+    - assets/
+    - assets/custom_images/
+
   fonts:
     - family: PlantIcons
       fonts:
