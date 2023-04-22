@@ -192,3 +192,18 @@ ButtonStyle secondaryElevatedButtonStyle(BuildContext context) {
       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(56))));
 }
+
+Widget primaryElevatedButton(BuildContext context, {required void Function()? onPressed, required Widget child}) {
+  return ElevatedButton(onPressed: onPressed, style: primaryElevatedButtonStyle(context), child: child);
+}
+
+ButtonStyle primaryElevatedButtonStyle(BuildContext context) {
+  final theme = Theme.of(context);
+  return ButtonStyle(
+      textStyle: MaterialStateTextStyle.resolveWith(
+          (states) => theme.textTheme.titleMedium!.copyWith(color: theme.colorScheme.secondary)),
+      backgroundColor: MaterialStateProperty.all(theme.colorScheme.primary),
+      padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(vertical: 16, horizontal: 24)),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(56))));
+}

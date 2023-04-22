@@ -33,7 +33,7 @@ class Ukrainian {
           createStageName: 'Імʼя стадії',
           createStageNameHint: 'Паростки',
           createStageDescription: 'Опис стадії',
-          createStageDescriptionHint: 'Виросте з...',
+          createStageDescriptionHint: 'Розкажіть більше про цей стадію',
           createStageDuration: 'Тривалість',
           createStageTimeFormat: 'Часовий формат',
           createStage: 'Створити стадію')

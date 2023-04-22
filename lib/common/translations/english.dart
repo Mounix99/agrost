@@ -32,7 +32,7 @@ class English {
           createStageName: 'Stage name',
           createStageNameHint: 'Sprouting',
           createStageDescription: 'Stage description',
-          createStageDescriptionHint: 'Will grow from...',
+          createStageDescriptionHint: 'Tell more about this stage',
           createStageDuration: 'Duration',
           createStageTimeFormat: 'Time format',
           createStage: 'Create stage')

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
 
-Image plantIcon() {
-  return Image.asset("assets/custom_images/plant.png");
+Image plantIcon({Color? color}) {
+  return Image.asset("assets/custom_images/plant.png", color: color);
 }

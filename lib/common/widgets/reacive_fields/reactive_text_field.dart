@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../extentions/forms.dart';
+import '../../extensions/forms.dart';
 import '../../styles/plant_icons.dart';
 
 class PlantTextField extends StatelessWidget {
   final ThemeData theme;
-  final FormControl<String?>? control;
+  final FormControl? control;
   final Map<String, String Function(Object)>? validation;
   final String? hint;
-  const PlantTextField({Key? key, required this.theme, this.control, this.validation, this.hint}) : super(key: key);
+  final IconData? icon;
+  final TextInputType? keyboardType;
+  const PlantTextField(
+      {Key? key, required this.theme, this.control, this.validation, this.hint, this.icon, this.keyboardType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class PlantTextField extends StatelessWidget {
         showErrors: (control) => control.invalid && control.touched,
         formControl: control,
         textInputAction: TextInputAction.next,
-        keyboardType: TextInputType.visiblePassword,
+        keyboardType: keyboardType ?? TextInputType.text,
         validationMessages: validation,
         decoration: InputDecoration(
             border: OutlineInputBorder(
@@ -47,7 +51,7 @@ class PlantTextField extends StatelessWidget {
                 )),
             errorStyle: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.primaryContainer),
             hintText: hint,
-            helperStyle: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.primaryContainer),
-            prefixIcon: Icon(PlantIcons.edit_2, color: theme.colorScheme.primary)));
+            hintStyle: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.primaryContainer),
+            prefixIcon: Icon(icon ?? PlantIcons.edit_2, color: theme.colorScheme.primary)));
   }
 }

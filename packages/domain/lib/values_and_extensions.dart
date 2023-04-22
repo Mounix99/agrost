@@ -56,7 +56,7 @@ enum PlantType {
   cacti,
   @JsonValue("Carnivorous plants")
   carnivorousPlants,
-  @JsonValue("deciduousPlants")
+  @JsonValue("Deciduous Plants")
   deciduousPlants,
   @JsonValue("Evergreen plants")
   evergreenPlants

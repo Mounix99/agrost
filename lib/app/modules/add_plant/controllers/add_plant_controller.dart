@@ -1,4 +1,3 @@
-import 'package:agrost/common/extentions/forms.dart';
 import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:domain/models/plants_api_models/stage_model.dart';
 import 'package:domain/repositories/plants_repository.dart';
@@ -6,6 +5,8 @@ import 'package:domain/repositories/user_repository.dart';
 import 'package:domain/values_and_extensions.dart';
 import 'package:either_dart/either.dart';
 import 'package:get/get.dart';
+
+import '../../../../common/extensions/forms.dart';
 
 enum PlantForm { name, description, family, soilType, public, stages }
 
@@ -40,7 +41,7 @@ class AddPlantController extends GetxController {
     _plantsRepository = Get.find();
     _userRepository = Get.find();
     stageForm = FormGroup({
-      StageForm.name.name: FormControl<String>(value: "", validators: [Validators.required]),
+      StageForm.name.name: FormControl<String>(validators: [Validators.required]),
       StageForm.description.name: FormControl<String?>(),
       StageForm.duration.name: FormControl<int>(value: 1, validators: [Validators.required]),
       StageForm.timeFormat.name: FormControl<StageTimeFormats>(value: StageTimeFormats.day),
@@ -48,8 +49,8 @@ class AddPlantController extends GetxController {
     plantForm = FormGroup({
       PlantForm.name.name: FormControl<String>(value: "", validators: [Validators.required]),
       PlantForm.description.name: FormControl<String?>(),
-      PlantForm.family.name: FormControl<PlantType>(value: PlantType.values[0]),
-      PlantForm.soilType.name: FormControl<List<SoilType>>(value: [SoilType.values[0]]),
+      PlantForm.family.name: FormControl<PlantType>(validators: [Validators.required]),
+      PlantForm.soilType.name: FormControl<SoilType>(validators: [Validators.required]),
       PlantForm.public.name: FormControl<bool>(value: false),
       PlantForm.stages.name: FormControl<List<StageModel>?>(value: []),
     }).obs;
@@ -67,15 +68,16 @@ class AddPlantController extends GetxController {
         plantDocId: '',
         stageDocId: '',
         title: stageForm.value.val<String>(StageForm.name)!,
-        description: stageForm.value.val<String>(StageForm.description)!,
+        description: stageForm.value.val<String?>(StageForm.description),
         authorDocId: userDocId,
         durationDelta: stageForm.value
-            .val<StageTimeFormats>(StageForm.description)!
+            .val<StageTimeFormats>(StageForm.timeFormat)!
             .convert(stageForm.value.val<int>(StageForm.duration)!)
             .inSeconds);
     stages.add(stage);
-    plantForm.value.setVal<List<StageModel>>(PlantForm.stages, stages);
+    plantForm.value.setVal<List<StageModel>?>(PlantForm.stages, stages);
     stageForm.value.reset();
+    stageForm.value.setVal<int>(StageForm.duration, 1);
   }
 
   Future<void> createPlant() async {
@@ -84,7 +86,7 @@ class AddPlantController extends GetxController {
         title: plantForm.value.val<String>(PlantForm.description)!,
         description: plantForm.value.val<String>(PlantForm.description),
         authorDocId: userDocId,
-        soilTypes: plantForm.value.val<List<SoilType>>(PlantForm.soilType)!,
+        soilTypes: [plantForm.value.val<SoilType>(PlantForm.soilType)!],
         plantType: plantForm.value.val<PlantType>(PlantForm.family)!,
         public: plantForm.value.val<bool>(PlantForm.public)!,
         createDate: DateTime.now(),
