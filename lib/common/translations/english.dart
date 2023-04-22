@@ -35,6 +35,11 @@ class English {
           createStageDescriptionHint: 'Tell more about this stage',
           createStageDuration: 'Duration',
           createStageTimeFormat: 'Time format',
-          createStage: 'Create stage')
+          createStage: 'Create stage',
+          week: 'week',
+          weeks: 'weeks',
+          day: 'day',
+          days: 'days',
+          addStage: 'Add stage')
       .toStringMap();
 }

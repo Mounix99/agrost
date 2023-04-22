@@ -30,14 +30,17 @@ extension StageTimeFormatsConverter on StageTimeFormats {
 class AddPlantController extends GetxController {
   late PlantsRepository _plantsRepository;
   late UserRepository _userRepository;
-  late String userDocId;
+  late RxList<StageModel> ctrlStages;
+  late RxBool showStageForm;
   late Rx<FormGroup> plantForm;
   late Rx<FormGroup> stageForm;
 
   final count = 0.obs;
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+    ctrlStages = <StageModel>[].obs;
+    showStageForm = true.obs;
     _plantsRepository = Get.find();
     _userRepository = Get.find();
     stageForm = FormGroup({
@@ -59,33 +62,37 @@ class AddPlantController extends GetxController {
   @override
   Future<void> onReady() async {
     super.onReady();
-    userDocId = await _userRepository.getCurrentUserDocId();
   }
 
-  void addStage() {
+  Future<void> addStage() async {
     final List<StageModel> stages = plantForm.value.val<List<StageModel>?>(PlantForm.stages) ?? [];
     final StageModel stage = StageModel(
         plantDocId: '',
         stageDocId: '',
         title: stageForm.value.val<String>(StageForm.name)!,
         description: stageForm.value.val<String?>(StageForm.description),
-        authorDocId: userDocId,
+        authorDocId: await _userRepository.getCurrentUserDocId(),
         durationDelta: stageForm.value
             .val<StageTimeFormats>(StageForm.timeFormat)!
             .convert(stageForm.value.val<int>(StageForm.duration)!)
             .inSeconds);
     stages.add(stage);
+    ctrlStages.value = stages;
+    showStageForm.value = false;
+    showStageForm.refresh();
+    ctrlStages.refresh();
     plantForm.value.setVal<List<StageModel>?>(PlantForm.stages, stages);
     stageForm.value.reset();
     stageForm.value.setVal<int>(StageForm.duration, 1);
   }
 
   Future<void> createPlant() async {
-    final List<StageModel> stages = plantForm.value.val<List<StageModel>>(PlantForm.stages) ?? [];
+    final List<StageModel> stages = plantForm.value.val<List<StageModel>?>(PlantForm.stages) ?? [];
     final PlantModel plant = PlantModel(
-        title: plantForm.value.val<String>(PlantForm.description)!,
-        description: plantForm.value.val<String>(PlantForm.description),
-        authorDocId: userDocId,
+        title: plantForm.value.val<String>(PlantForm.name)!,
+        description: plantForm.value.val<String?>(PlantForm.description),
+        authorDocId: await _userRepository.getCurrentUserDocId(),
+        usesByUsersDocId: [await _userRepository.getCurrentUserDocId()],
         soilTypes: [plantForm.value.val<SoilType>(PlantForm.soilType)!],
         plantType: plantForm.value.val<PlantType>(PlantForm.family)!,
         public: plantForm.value.val<bool>(PlantForm.public)!,

@@ -1,11 +1,13 @@
 import 'package:agrost/common/styles/plant_icons.dart';
 import 'package:agrost/common/widgets/hardcoded_icons.dart';
 import 'package:agrost/common/widgets/reacive_fields/reactive_drop_down.dart';
+import 'package:domain/models/plants_api_models/stage_model.dart';
 import 'package:domain/values_and_extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../common/extensions/duration.dart';
 import '../../../../common/extensions/forms.dart';
 import '../../../../common/theme.dart';
 import '../../../../common/widgets/reacive_fields/reactive_text_field.dart';
@@ -20,47 +22,66 @@ class AddPlantView extends GetView<AddPlantController> {
       appBar: AppBar(
         title: Text('createPlantAppBarTitle'.tr),
       ),
-      body: ReactiveForm(
-        formGroup: controller.plantForm.value,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(8, 16, 8, 40),
-          child: ListView(
-            children: [
-              ..._getPlantFormContent(context, theme),
-              const SizedBox(height: 16),
-              ..._getStageFormContent(context, theme),
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 80),
-                child: primaryElevatedButton(context, onPressed: () {
-                  controller.plantForm.value.markAllAsTouched();
-                  if (controller.plantForm.value.valid) {
-                    controller.createPlant();
-                  }
-                },
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        plantIcon(color: theme.colorScheme.secondary),
-                        const SizedBox(width: 9),
-                        Text(
-                          'addPlant'.tr,
-                          style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.secondary),
-                        ),
-                        const SizedBox(width: 14),
-                        Container(
-                          height: 8,
-                          width: 8,
-                          decoration:
-                              BoxDecoration(color: theme.colorScheme.secondary, borderRadius: BorderRadius.circular(8)),
-                        )
-                      ],
-                    )),
-              )
-            ],
-          ),
-        ),
-      ),
+      body: Obx(() => ReactiveForm(
+            formGroup: controller.plantForm.value,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8, 16, 8, 40),
+              child: ListView(
+                children: [
+                  ..._getPlantFormContent(context, theme),
+                  const SizedBox(height: 16),
+                  ...controller.ctrlStages.map((stage) => _stageCard(theme: theme, stage: stage)),
+                  const SizedBox(height: 16),
+                  if (controller.showStageForm.value) ..._getStageFormContent(context, theme),
+                  if (controller.showStageForm.isFalse)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 85),
+                      child: secondaryElevatedButton(context, onPressed: () {
+                        controller.showStageForm = true.obs;
+                        controller.showStageForm.refresh();
+                      },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(PlantIcons.timeCircleCheck, color: Theme.of(context).colorScheme.primary),
+                              const SizedBox(width: 9),
+                              Text('addStage'.tr),
+                            ],
+                          )),
+                    ),
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 80),
+                    child: primaryElevatedButton(context, onPressed: () {
+                      controller.plantForm.value.markAllAsTouched();
+                      if (controller.plantForm.value.valid) {
+                        controller.createPlant();
+                        Navigator.pop(context);
+                      }
+                    },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            plantIcon(color: theme.colorScheme.secondary),
+                            const SizedBox(width: 9),
+                            Text(
+                              'addPlant'.tr,
+                              style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.secondary),
+                            ),
+                            const SizedBox(width: 14),
+                            Container(
+                              height: 8,
+                              width: 8,
+                              decoration: BoxDecoration(
+                                  color: theme.colorScheme.secondary, borderRadius: BorderRadius.circular(8)),
+                            )
+                          ],
+                        )),
+                  )
+                ],
+              ),
+            ),
+          )),
     );
   }
 
@@ -291,5 +312,70 @@ class AddPlantView extends GetView<AddPlantController> {
                 ))
             .toList(),
         onChanged: (ctrl) => controller.plantForm.value.markAsDirty(),
+      );
+
+  Widget _stageCard({required ThemeData theme, required StageModel stage}) => Card(
+        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(28))),
+        elevation: 0,
+        margin: const EdgeInsets.only(bottom: 16),
+        color: theme.colorScheme.onSurface,
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(stage.title, style: theme.textTheme.displaySmall),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [IconButton(onPressed: () {}, icon: const Icon(PlantIcons.delete_1))],
+                  )
+                ],
+              ),
+              const SizedBox(height: 25),
+              if (stage.description?.isNotEmpty ?? false)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      radius: 27,
+                      backgroundColor: theme.colorScheme.surface,
+                      child: const Icon(PlantIcons.edit_2),
+                    ),
+                    const SizedBox(width: 16),
+                    Text(stage.description!,
+                        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onPrimary)),
+                  ],
+                ),
+              const SizedBox(height: 25),
+              if (stage.durationDelta != null)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      radius: 27,
+                      backgroundColor: theme.colorScheme.surface,
+                      child: const Icon(PlantIcons.calender_1),
+                    ),
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('createStageDuration'.tr, style: theme.textTheme.titleLarge),
+                        const SizedBox(height: 8),
+                        Text(formatDuration(Duration(seconds: stage.durationDelta!)),
+                            style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onPrimary)),
+                      ],
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
       );
 }

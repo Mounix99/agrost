@@ -36,6 +36,11 @@ class Ukrainian {
           createStageDescriptionHint: 'Розкажіть більше про цей стадію',
           createStageDuration: 'Тривалість',
           createStageTimeFormat: 'Часовий формат',
-          createStage: 'Створити стадію')
+          createStage: 'Створити стадію',
+          week: 'тиждень',
+          weeks: 'тижні',
+          day: 'день',
+          days: 'днів',
+          addStage: 'Додати ще стадію')
       .toStringMap();
 }

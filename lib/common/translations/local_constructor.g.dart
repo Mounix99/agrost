@@ -31,6 +31,7 @@ LocaleConstructor _$LocaleConstructorFromJson(Map<String, dynamic> json) => Loca
       createPlantPublicPlantSubtitle: json['createPlantPublicPlantSubtitle'] as String,
       createPlantGrowthStages: json['createPlantGrowthStages'] as String,
       createPlantGrowthStagesSubtitle: json['createPlantGrowthStagesSubtitle'] as String,
+      addStage: json['addStage'] as String,
       createStage: json['createStage'] as String,
       createStageName: json['createStageName'] as String,
       createStageNameHint: json['createStageNameHint'] as String,
@@ -40,6 +41,10 @@ LocaleConstructor _$LocaleConstructorFromJson(Map<String, dynamic> json) => Loca
       createStageTimeFormat: json['createStageTimeFormat'] as String,
       createPlantDescription: json['createPlantDescription'] as String,
       createPlantDescriptionHint: json['createPlantDescriptionHint'] as String,
+      week: json['week'] as String,
+      weeks: json['weeks'] as String,
+      day: json['day'] as String,
+      days: json['days'] as String,
     );
 
 Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <String, dynamic>{
@@ -69,6 +74,7 @@ Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <S
       'createPlantPublicPlantSubtitle': instance.createPlantPublicPlantSubtitle,
       'createPlantGrowthStages': instance.createPlantGrowthStages,
       'createPlantGrowthStagesSubtitle': instance.createPlantGrowthStagesSubtitle,
+      'addStage': instance.addStage,
       'createStage': instance.createStage,
       'createStageName': instance.createStageName,
       'createStageNameHint': instance.createStageNameHint,
@@ -76,4 +82,8 @@ Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <S
       'createStageDescriptionHint': instance.createStageDescriptionHint,
       'createStageDuration': instance.createStageDuration,
       'createStageTimeFormat': instance.createStageTimeFormat,
+      'week': instance.week,
+      'weeks': instance.weeks,
+      'day': instance.day,
+      'days': instance.days,
     };

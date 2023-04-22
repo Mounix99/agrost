@@ -40,6 +40,7 @@ class LocaleConstructor {
   final String createPlantGrowthStagesSubtitle;
 
   ///Create stage
+  final String addStage;
   final String createStage;
   final String createStageName;
   final String createStageNameHint;
@@ -47,6 +48,12 @@ class LocaleConstructor {
   final String createStageDescriptionHint;
   final String createStageDuration;
   final String createStageTimeFormat;
+
+  /// Duration titles
+  final String week;
+  final String weeks;
+  final String day;
+  final String days;
 
   LocaleConstructor({
     required this.bottomNavigationFields,
@@ -73,6 +80,7 @@ class LocaleConstructor {
     required this.createPlantPublicPlantSubtitle,
     required this.createPlantGrowthStages,
     required this.createPlantGrowthStagesSubtitle,
+    required this.addStage,
     required this.createStage,
     required this.createStageName,
     required this.createStageNameHint,
@@ -82,6 +90,10 @@ class LocaleConstructor {
     required this.createStageTimeFormat,
     required this.createPlantDescription,
     required this.createPlantDescriptionHint,
+    required this.week,
+    required this.weeks,
+    required this.day,
+    required this.days,
   });
 
   factory LocaleConstructor.fromJson(Map<String, dynamic> json) => _$LocaleConstructorFromJson(json);
