@@ -3,7 +3,7 @@ import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:flutter/material.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-class HeroImages {
+class HeroWidgets {
   static const String plantTag = 'plantTag_';
 
   Widget heroForPlantImage(BuildContext context, PlantModel plant) {

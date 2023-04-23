@@ -162,21 +162,56 @@ ThemeData _subThemes(FlexColorScheme flexColorScheme) {
   final themeData = flexColorScheme.toTheme;
   final colorScheme = flexColorScheme.toScheme;
   return themeData.copyWith(
-    iconTheme: IconThemeData(color: colorScheme.primary, size: 24),
-    appBarTheme: AppBarTheme(
-        titleTextStyle: themeData.textTheme.displayLarge,
-        iconTheme: IconThemeData(color: colorScheme.primary),
-        centerTitle: false,
-        color: colorScheme.surface),
-    navigationBarTheme: NavigationBarThemeData(
-        surfaceTintColor: colorScheme.surface,
-        indicatorColor: DefinedColors._onBg1,
-        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide),
-    tabBarTheme: TabBarTheme(
-        indicatorSize: TabBarIndicatorSize.tab,
-        labelStyle: themeData.textTheme.titleMedium,
-        unselectedLabelColor: colorScheme.onPrimary),
-  );
+      iconTheme: IconThemeData(color: colorScheme.primary, size: 24),
+      appBarTheme: AppBarTheme(
+          titleTextStyle: themeData.textTheme.displayLarge,
+          iconTheme: IconThemeData(color: colorScheme.primary),
+          centerTitle: false,
+          color: colorScheme.surface),
+      navigationBarTheme: NavigationBarThemeData(
+          surfaceTintColor: colorScheme.surface,
+          indicatorColor: DefinedColors._onBg1,
+          labelBehavior: NavigationDestinationLabelBehavior.alwaysHide),
+      tabBarTheme: TabBarTheme(
+          indicatorSize: TabBarIndicatorSize.tab,
+          labelStyle: themeData.textTheme.titleMedium,
+          unselectedLabelColor: colorScheme.onPrimary),
+      switchTheme: SwitchThemeData(
+          trackColor: MaterialStateProperty.resolveWith((states) {
+            if (states.contains(MaterialState.selected)) return colorScheme.secondaryContainer;
+            return colorScheme.onSurfaceVariant;
+          }),
+          thumbColor: MaterialStateProperty.resolveWith((states) => colorScheme.surface),
+          splashRadius: 1),
+      inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide(
+                color: colorScheme.onSurfaceVariant,
+              )),
+          enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide(
+                color: colorScheme.onSurfaceVariant,
+              )),
+          disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide(
+                color: colorScheme.onSurfaceVariant,
+              )),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide(
+              color: colorScheme.onSurfaceVariant,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide(
+                color: colorScheme.error,
+              )),
+          errorStyle: themeData.textTheme.bodySmall?.copyWith(color: colorScheme.primaryContainer),
+          hintStyle: themeData.textTheme.bodyMedium?.copyWith(color: colorScheme.primaryContainer)));
 }
 
 Widget secondaryElevatedButton(BuildContext context, {required void Function()? onPressed, required Widget child}) {

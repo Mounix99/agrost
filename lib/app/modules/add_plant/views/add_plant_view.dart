@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:agrost/common/styles/plant_icons.dart';
 import 'package:agrost/common/widgets/hardcoded_icons.dart';
 import 'package:agrost/common/widgets/reacive_fields/reactive_drop_down.dart';
@@ -6,10 +8,12 @@ import 'package:domain/values_and_extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../common/extensions/duration.dart';
 import '../../../../common/extensions/forms.dart';
 import '../../../../common/theme.dart';
+import '../../../../common/widgets/circular_icon_button.dart';
 import '../../../../common/widgets/reacive_fields/reactive_text_field.dart';
 import '../controllers/add_plant_controller.dart';
 
@@ -30,16 +34,14 @@ class AddPlantView extends GetView<AddPlantController> {
                 children: [
                   ..._getPlantFormContent(context, theme),
                   const SizedBox(height: 16),
-                  ...controller.ctrlStages.map((stage) => _stageCard(theme: theme, stage: stage)),
+                  ...controller.actualStages.map((stage) => _stageCard(theme: theme, stage: stage)),
                   const SizedBox(height: 16),
-                  if (controller.showStageForm.value) ..._getStageFormContent(context, theme),
+                  if (controller.showStageForm.isTrue) ..._getStageFormContent(context, theme),
                   if (controller.showStageForm.isFalse)
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 85),
-                      child: secondaryElevatedButton(context, onPressed: () {
-                        controller.showStageForm = true.obs;
-                        controller.showStageForm.refresh();
-                      },
+                      child: secondaryElevatedButton(context,
+                          onPressed: controller.showStageForm.toggle,
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -149,7 +151,48 @@ class AddPlantView extends GetView<AddPlantController> {
         ),
       );
 
-  Widget _pictureBloc(ThemeData theme) => Card(
+  Widget _pictureBloc(ThemeData theme) {
+    return ReactiveStatusListenableBuilder(
+      formControl: controller.plantForm.value.ctrl<String?>(PlantForm.image),
+      builder: (BuildContext context, AbstractControl<Object?> control, Widget? child) {
+        if (control.value != null) {
+          return _plantImage(theme);
+        } else {
+          return _getPictureBloc(theme);
+        }
+      },
+    );
+  }
+
+  Widget _plantImage(ThemeData theme) => Stack(alignment: Alignment.topCenter, children: [
+        Card(
+            margin: EdgeInsets.zero,
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(28))),
+            elevation: 0,
+            color: theme.colorScheme.onSurface,
+            child: Image.file(File(controller.image!.path), fit: BoxFit.cover, height: 178, width: 344)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CircularIconButton(
+                theme: theme,
+                icon: PlantIcons.editSquare,
+                onPressed: () => controller.pickImage(ImageSource.gallery),
+              ),
+              const SizedBox(width: 4),
+              CircularIconButton(
+                theme: theme,
+                icon: PlantIcons.delete_1,
+                onPressed: controller.removeImage,
+              )
+            ],
+          ),
+        )
+      ]);
+
+  Widget _getPictureBloc(ThemeData theme) => Card(
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(28))),
         elevation: 0,
         color: theme.colorScheme.onSurface,
@@ -163,13 +206,13 @@ class AddPlantView extends GetView<AddPlantController> {
               ),
               const SizedBox(height: 16),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _pictureOption(
                       theme: theme,
                       title: 'createPlantTakeACutePicture'.tr,
                       icon: PlantIcons.camera_1,
-                      onPressed: () {}),
+                      onPressed: () => controller.pickImage(ImageSource.camera)),
                   SizedBox(
                     height: 92,
                     child: VerticalDivider(
@@ -179,7 +222,10 @@ class AddPlantView extends GetView<AddPlantController> {
                     ),
                   ),
                   _pictureOption(
-                      theme: theme, title: 'createPlantUploadFromGallery'.tr, icon: PlantIcons.image, onPressed: () {}),
+                      theme: theme,
+                      title: 'createPlantUploadFromGallery'.tr,
+                      icon: PlantIcons.image,
+                      onPressed: () => controller.pickImage(ImageSource.gallery)),
                 ],
               )
             ],
@@ -193,11 +239,7 @@ class AddPlantView extends GetView<AddPlantController> {
         onTap: onPressed,
         child: Column(
           children: [
-            CircleAvatar(
-              radius: 16,
-              backgroundColor: theme.colorScheme.surface,
-              child: Icon(icon),
-            ),
+            CircularIconButton(theme: theme, icon: icon),
             const SizedBox(height: 4),
             SizedBox(width: 127, child: Text(title, style: theme.textTheme.bodyMedium, textAlign: TextAlign.center))
           ],
@@ -331,7 +373,9 @@ class AddPlantView extends GetView<AddPlantController> {
                   Text(stage.title, style: theme.textTheme.displaySmall),
                   Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [IconButton(onPressed: () {}, icon: const Icon(PlantIcons.delete_1))],
+                    children: [
+                      IconButton(onPressed: () => controller.removeStage(stage), icon: const Icon(PlantIcons.delete_1))
+                    ],
                   )
                 ],
               ),

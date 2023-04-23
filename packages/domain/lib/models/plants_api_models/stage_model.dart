@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'stage_model.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.none)
-class StageModel {
+class StageModel extends Equatable {
   final String plantDocId;
   final String title;
   final String? description;
@@ -11,7 +12,7 @@ class StageModel {
   final int? durationDelta;
   final String? stageDocId;
 
-  StageModel(
+  const StageModel(
       {required this.plantDocId,
       required this.title,
       this.description,
@@ -37,4 +38,7 @@ class StageModel {
           authorDocId: authorDocId ?? this.authorDocId,
           durationDelta: durationDelta ?? this.durationDelta,
           stageDocId: stageDocId ?? this.stageDocId);
+
+  @override
+  List<Object?> get props => [plantDocId, title, description, authorDocId, durationDelta, stageDocId];
 }
