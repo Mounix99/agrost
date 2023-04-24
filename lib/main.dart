@@ -33,7 +33,9 @@ Future<void> main() async {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        locale: Get.deviceLocale,
+        locale: Get.deviceLocale == const Locale.fromSubtags(languageCode: 'uk')
+            ? const Locale.fromSubtags(languageCode: 'uk')
+            : const Locale.fromSubtags(languageCode: 'en'),
         initialBinding: GeneralBinding(),
         initialRoute: Routes.SPLASH,
         getPages: AppPages.routes,

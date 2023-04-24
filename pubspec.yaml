@@ -24,8 +24,12 @@ dependencies:
 
   #design packages
   google_fonts: ^4.0.3
-  flex_color_scheme: ^7.0.3
+  flex_color_scheme: ^7.0.4
   antd_mobile: ^0.1.0
+
+  #Work with device memory
+  image_picker: ^0.8.7+4
+  path_provider: ^2.0.14
 
   #Other scope
   get: 4.6.5

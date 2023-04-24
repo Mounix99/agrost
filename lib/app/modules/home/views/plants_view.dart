@@ -85,7 +85,7 @@ class PlantsView extends GetView<PlantsController> {
         ),
         elevation: 0,
         child: ListTile(
-            leading: HeroImages().heroForPlantImage(context, plant),
+            leading: HeroWidgets().heroForPlantImage(context, plant),
             tileColor: publicAdded ? theme.colorScheme.secondary : theme.colorScheme.onSurface,
             contentPadding: const EdgeInsets.all(28),
             trailing: Icon(publicAdded ? PlantIcons.tick : PlantIcons.add, color: theme.colorScheme.primary),

@@ -58,5 +58,14 @@
             </array>
         </dict>
     </array>
+    <!-- Permission options for the `camera` group -->
+    <key>NSCameraUsageDescription</key>
+    <string>Camera will be using for taking pictures and attaching them as an image for plants or fields</string>
+    <!-- Permission options for the `photos` group -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Library will be using for picking pictures and attaching them as an image for plants or fields</string>
+    <!-- Permission options for the `microphone` group -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Microphone will be using for taking videos and attaching them to plants and fields</string>
 </dict>
 </plist>
