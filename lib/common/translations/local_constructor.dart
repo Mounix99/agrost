@@ -38,6 +38,7 @@ class LocaleConstructor {
   final String createPlantPublicPlantSubtitle;
   final String createPlantGrowthStages;
   final String createPlantGrowthStagesSubtitle;
+  final String createPlantSuccessPopUp;
 
   ///Create stage
   final String addStage;
@@ -80,6 +81,7 @@ class LocaleConstructor {
     required this.createPlantPublicPlantSubtitle,
     required this.createPlantGrowthStages,
     required this.createPlantGrowthStagesSubtitle,
+    required this.createPlantSuccessPopUp,
     required this.addStage,
     required this.createStage,
     required this.createStageName,

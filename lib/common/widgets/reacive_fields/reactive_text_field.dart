@@ -9,16 +9,26 @@ class PlantTextField extends StatelessWidget {
   final Map<String, String Function(Object)>? validation;
   final String? hint;
   final IconData? icon;
+  final FocusNode? focusNode;
   final TextInputType? keyboardType;
   const PlantTextField(
-      {Key? key, required this.theme, this.control, this.validation, this.hint, this.icon, this.keyboardType})
+      {Key? key,
+      required this.theme,
+      this.control,
+      this.validation,
+      this.hint,
+      this.icon,
+      this.keyboardType,
+      this.focusNode})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ReactiveTextField(
+        key: key,
         showErrors: (control) => control.invalid && control.touched,
         formControl: control,
+        focusNode: focusNode,
         textInputAction: TextInputAction.next,
         keyboardType: keyboardType ?? TextInputType.text,
         validationMessages: validation,

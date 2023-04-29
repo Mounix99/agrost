@@ -20,7 +20,7 @@ PlantModel _$PlantModelFromJson(Map<String, dynamic> json) => PlantModel(
       createDate: DateTime.parse(json['createDate'] as String),
       lastUpdateDate: DateTime.parse(json['lastUpdateDate'] as String),
       version: json['version'] as String,
-      photoBytes: json['photoUrl'] as String?,
+      photoBytes: json['photoBytes'] as String?,
     );
 
 Map<String, dynamic> _$PlantModelToJson(PlantModel instance) => <String, dynamic>{
@@ -37,7 +37,7 @@ Map<String, dynamic> _$PlantModelToJson(PlantModel instance) => <String, dynamic
       'createDate': instance.createDate.toIso8601String(),
       'lastUpdateDate': instance.lastUpdateDate.toIso8601String(),
       'version': instance.version,
-      'photoUrl': instance.photoBytes,
+      'photoBytes': instance.photoBytes,
     };
 
 const _$SoilTypeEnumMap = {
@@ -70,6 +70,6 @@ const _$PlantTypeEnumMap = {
   PlantType.bulbs: 'Bulbs',
   PlantType.cacti: 'Cacti',
   PlantType.carnivorousPlants: 'Carnivorous plants',
-  PlantType.deciduousPlants: 'deciduousPlants',
+  PlantType.deciduousPlants: 'Deciduous Plants',
   PlantType.evergreenPlants: 'Evergreen plants',
 };

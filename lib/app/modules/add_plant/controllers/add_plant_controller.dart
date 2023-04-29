@@ -8,6 +8,7 @@ import 'package:domain/repositories/user_repository.dart';
 import 'package:domain/values_and_extensions.dart';
 import 'package:either_dart/either.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -36,6 +37,9 @@ class AddPlantController extends GetxController {
   final PlantsRepository _plantsRepository = Get.find();
   final UserRepository _userRepository = Get.find();
   final ImagePicker _imagePicker = ImagePicker();
+  final ScrollController scrollController = ScrollController();
+  late Map<String, FocusNode> plantFocusNodes;
+  late Map<String, FocusNode> stageFocusNodes;
   final RxList<StageModel> actualStages = <StageModel>[].obs;
   late XFile? image;
   final RxBool showStageForm = true.obs;
@@ -45,6 +49,7 @@ class AddPlantController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    _nodes();
     image = null;
     stageForm = FormGroup({
       StageForm.name.name: FormControl<String>(validators: [Validators.required]),
@@ -62,6 +67,20 @@ class AddPlantController extends GetxController {
       PlantForm.public.name: FormControl<bool>(value: false),
       PlantForm.stages.name: FormControl<List<StageModel>?>(value: []),
     }).obs;
+  }
+
+  void _nodes() {
+    plantFocusNodes = {for (var field in PlantForm.values) field.name: FocusNode()};
+    stageFocusNodes = {for (var field in StageForm.values) field.name: FocusNode()};
+  }
+
+  void _disposeNodes() {
+    for (var node in plantFocusNodes.values) {
+      node.dispose();
+    }
+    for (var node in stageFocusNodes.values) {
+      node.dispose();
+    }
   }
 
   @override
@@ -101,6 +120,7 @@ class AddPlantController extends GetxController {
         soilTypes: [plantForm.value.val<SoilType>(PlantForm.soilType)!],
         plantType: plantForm.value.val<PlantType>(PlantForm.family)!,
         public: plantForm.value.val<bool>(PlantForm.public)!,
+        photoBytes: await _convertImageToString(),
         createDate: DateTime.now(),
         lastUpdateDate: DateTime.now(),
         version: "0.0.1",
@@ -113,6 +133,15 @@ class AddPlantController extends GetxController {
     } else {
       Get.showSnackbar(GetSnackBar(title: value.right));
     }
+  }
+
+  Future<String?> _convertImageToString() async {
+    if (image != null) {
+      Uint8List imageBytes = await image!.readAsBytes();
+      String base64Image = base64Encode(imageBytes);
+      return base64Image;
+    }
+    return null;
   }
 
   Future<void> pickImage(ImageSource source) async {
@@ -155,6 +184,7 @@ class AddPlantController extends GetxController {
 
   @override
   void onClose() {
+    _disposeNodes();
     plantForm.close();
     stageForm.close();
     super.onClose();

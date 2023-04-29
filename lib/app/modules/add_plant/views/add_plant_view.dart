@@ -15,6 +15,7 @@ import '../../../../common/extensions/forms.dart';
 import '../../../../common/theme.dart';
 import '../../../../common/widgets/circular_icon_button.dart';
 import '../../../../common/widgets/reacive_fields/reactive_text_field.dart';
+import '../../../../common/widgets/rotated_dialogs.dart';
 import '../controllers/add_plant_controller.dart';
 
 class AddPlantView extends GetView<AddPlantController> {
@@ -31,6 +32,7 @@ class AddPlantView extends GetView<AddPlantController> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8, 16, 8, 40),
               child: ListView(
+                controller: controller.scrollController,
                 children: [
                   ..._getPlantFormContent(context, theme),
                   const SizedBox(height: 16),
@@ -59,6 +61,9 @@ class AddPlantView extends GetView<AddPlantController> {
                       if (controller.plantForm.value.valid) {
                         controller.createPlant();
                         Navigator.pop(context);
+                        plantAddedDialog(context);
+                      } else {
+                        _scrollToError(context);
                       }
                     },
                         child: Row(
@@ -96,6 +101,7 @@ class AddPlantView extends GetView<AddPlantController> {
         const SizedBox(height: 4),
         PlantTextField(
             theme: theme,
+            focusNode: controller.plantFocusNodes[PlantForm.name.name],
             control: controller.plantForm.value.ctrl<String>(PlantForm.name),
             hint: 'createPlantPlantNameHint'.tr),
         const SizedBox(height: 16),
@@ -111,6 +117,7 @@ class AddPlantView extends GetView<AddPlantController> {
         const SizedBox(height: 4),
         PlantTextField(
             theme: theme,
+            focusNode: controller.plantFocusNodes[PlantForm.description.name],
             control: controller.plantForm.value.ctrl<String?>(PlantForm.description),
             hint: 'createPlantDescriptionHint'.tr),
         const SizedBox(height: 60),
@@ -170,7 +177,7 @@ class AddPlantView extends GetView<AddPlantController> {
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(28))),
             elevation: 0,
             color: theme.colorScheme.onSurface,
-            child: Image.file(File(controller.image!.path), fit: BoxFit.cover, height: 178, width: 344)),
+            child: Image.file(File(controller.image!.path))),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           child: Row(
@@ -247,6 +254,7 @@ class AddPlantView extends GetView<AddPlantController> {
       );
 
   Widget _familyTypeDropDown({required ThemeData theme}) => PlantDropDown(
+        focusNode: controller.plantFocusNodes[PlantForm.family.name],
         formControl: controller.plantForm.value.ctrl<PlantType>(PlantForm.family),
         icon: plantIcon(),
         theme: theme,
@@ -261,6 +269,7 @@ class AddPlantView extends GetView<AddPlantController> {
       );
 
   Widget _soilTypeDropDown({required ThemeData theme}) => PlantDropDown(
+        focusNode: controller.plantFocusNodes[PlantForm.soilType.name],
         formControl: controller.plantForm.value.ctrl<SoilType>(PlantForm.soilType),
         icon: Icon(PlantIcons.category, color: theme.colorScheme.primary),
         hint: SoilType.values[0].name,
@@ -422,4 +431,22 @@ class AddPlantView extends GetView<AddPlantController> {
           ),
         ),
       );
+
+  void _scrollToError(BuildContext context) {
+    for (String controlName in controller.plantForm.value.controls.keys) {
+      if (controller.plantForm.value.control(controlName).invalid) {
+        final node = controller.plantFocusNodes[controlName];
+        if (node != null) {
+          node.requestFocus();
+          plantAddedDialog(context);
+        }
+        controller.scrollController.animateTo(
+          controller.scrollController.position.minScrollExtent,
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 500),
+        );
+        break;
+      }
+    }
+  }
 }

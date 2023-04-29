@@ -29,6 +29,7 @@ class English {
           createPlantGrowthStages: 'Growth stages',
           createPlantGrowthStagesSubtitle:
               'You can add growth stages so when this plant is planted you can have a better overview of what actions should be taken.',
+          createPlantSuccessPopUp: 'Plant was successfully added!',
           createStageName: 'Stage name',
           createStageNameHint: 'Sprouting',
           createStageDescription: 'Stage description',

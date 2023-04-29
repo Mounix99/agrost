@@ -30,6 +30,7 @@ class Ukrainian {
           createPlantGrowthStages: 'Етапи росту',
           createPlantGrowthStagesSubtitle:
               'Ви можете додати стадії росту, щоб коли рослина буде висаджена, ви могли мати краще уявлення про те, які дії слід вжити.',
+          createPlantSuccessPopUp: 'Рослина успішно додана!',
           createStageName: 'Імʼя стадії',
           createStageNameHint: 'Паростки',
           createStageDescription: 'Опис стадії',
