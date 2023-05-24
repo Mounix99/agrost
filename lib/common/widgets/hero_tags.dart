@@ -1,7 +1,6 @@
-import 'package:agrost/common/styles/plant_icons.dart';
 import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:plant_icons/plant_icons_data.dart';
 
 class HeroWidgets {
   static const String plantTag = 'plantTag_';

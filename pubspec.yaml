@@ -26,6 +26,7 @@ dependencies:
   google_fonts: ^4.0.4
   flex_color_scheme: ^7.0.4
   antd_mobile: ^0.1.0
+  plant_icons: ^0.0.1
 
   #Work with device memory
   image_picker: ^0.8.7+4
@@ -39,6 +40,7 @@ dependencies:
   reactive_forms: ^14.3.0
   intl: ^0.18.1
   either_dart: ^0.4.0
+  firebase_storage: ^11.1.2
 
 dependency_overrides:
   intl: ^0.18.1
@@ -58,9 +60,6 @@ flutter:
     - assets/essentials/
 
   fonts:
-    - family: PlantIcons
-      fonts:
-        - asset: fonts/PlantIcons.ttf
     - family: Futura
       fonts:
         - asset: fonts/Futura-Bold.ttf

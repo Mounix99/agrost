@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:agrost/common/styles/plant_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:plant_icons/plant_icons_data.dart';
 
 import 'hardcoded_icons.dart';
 

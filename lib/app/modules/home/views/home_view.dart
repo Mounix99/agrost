@@ -1,8 +1,8 @@
-import 'package:agrost/common/styles/plant_icons.dart';
 import 'package:agrost/common/widgets/hardcoded_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:plant_icons/plant_icons_data.dart';
 
 import '../../../../common/styles/decorations.dart';
 import '../controllers/home_controller.dart';

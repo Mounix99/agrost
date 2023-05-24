@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:domain/models/plants_api_models/plant_model.dart';
 import 'package:domain/models/plants_api_models/stage_model.dart';
+import 'package:domain/repositories/image_repository.dart';
 import 'package:domain/repositories/plants_repository.dart';
 import 'package:domain/repositories/user_repository.dart';
 import 'package:domain/values_and_extensions.dart';
@@ -35,6 +36,7 @@ extension StageTimeFormatsConverter on StageTimeFormats {
 
 class AddPlantController extends GetxController {
   final PlantsRepository _plantsRepository = Get.find();
+  final ImageRepository _imageRepository = Get.find();
   final UserRepository _userRepository = Get.find();
   final ImagePicker _imagePicker = ImagePicker();
   final ScrollController scrollController = ScrollController();
@@ -120,7 +122,7 @@ class AddPlantController extends GetxController {
         soilTypes: [plantForm.value.val<SoilType>(PlantForm.soilType)!],
         plantType: plantForm.value.val<PlantType>(PlantForm.family)!,
         public: plantForm.value.val<bool>(PlantForm.public)!,
-        photoBytes: await _convertImageToString(),
+        photoPath: await _uploadImageToStorage(),
         createDate: DateTime.now(),
         lastUpdateDate: DateTime.now(),
         version: "0.0.1",
@@ -135,11 +137,17 @@ class AddPlantController extends GetxController {
     }
   }
 
-  Future<String?> _convertImageToString() async {
+  Future<String?> _uploadImageToStorage() async {
     if (image != null) {
-      Uint8List imageBytes = await image!.readAsBytes();
-      String base64Image = base64Encode(imageBytes);
-      return base64Image;
+      final userId = await _userRepository.getCurrentUserDocId();
+      final plantName = plantForm.value.val<String>(PlantForm.name)!;
+      final fileName = "${plantName}_${image!.name}_$userId";
+      final response = await _imageRepository.uploadPlantImage(file: File(image!.path), fileName: fileName);
+      if (response.isRight) {
+        Get.showSnackbar(GetSnackBar(title: response.right));
+      } else {
+        return response.left;
+      }
     }
     return null;
   }

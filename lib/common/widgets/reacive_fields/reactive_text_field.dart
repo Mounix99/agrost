@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plant_icons/plant_icons_data.dart';
 
 import '../../extensions/forms.dart';
-import '../../styles/plant_icons.dart';
 
 class PlantTextField extends StatelessWidget {
   final ThemeData theme;

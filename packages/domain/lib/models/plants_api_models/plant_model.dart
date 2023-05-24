@@ -19,7 +19,7 @@ class PlantModel {
   final DateTime createDate;
   final DateTime lastUpdateDate;
   final String version;
-  final String? photoBytes;
+  final String? photoPath;
 
   PlantModel(
       {this.plantDocId,
@@ -35,7 +35,7 @@ class PlantModel {
       required this.createDate,
       required this.lastUpdateDate,
       required this.version,
-      this.photoBytes});
+      this.photoPath});
 
   factory PlantModel.fromJson(Map<String, dynamic> json) => _$PlantModelFromJson(json);
 
@@ -55,7 +55,7 @@ class PlantModel {
           DateTime? createDate,
           DateTime? lastUpdateDate,
           String? version,
-          String? photoBytes}) =>
+          String? photoPath}) =>
       PlantModel(
           plantDocId: plantDocId ?? this.plantDocId,
           title: title ?? this.title,
@@ -69,6 +69,6 @@ class PlantModel {
           timesAddedByUsers: timesAddedByUsers ?? this.timesAddedByUsers,
           createDate: createDate ?? this.createDate,
           lastUpdateDate: lastUpdateDate ?? this.lastUpdateDate,
-          photoBytes: photoBytes ?? this.photoBytes,
+          photoPath: photoPath ?? this.photoPath,
           version: version ?? this.version);
 }

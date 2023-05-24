@@ -1,4 +1,3 @@
-import 'package:agrost/common/styles/plant_icons.dart';
 import 'package:agrost/common/widgets/hardcoded_icons.dart';
 import 'package:agrost/common/widgets/hero_tags.dart';
 import 'package:agrost/common/widgets/secondary_bar.dart';
@@ -7,6 +6,7 @@ import 'package:firebase_ui_firestore/firebase_ui_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:plant_icons/plant_icons_data.dart';
 import '../../../../common/theme.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/plants_controller.dart';
