@@ -16,6 +16,8 @@ class LocaleConstructor {
 
   final String fieldsTitle;
 
+  final String stage;
+
   ///Plant tab
   final String plantsTitle;
   final String myPlantsSubtitle;
@@ -104,6 +106,7 @@ class LocaleConstructor {
     required this.plantDetails,
     required this.plantPublishedPublicly,
     required this.stageIsFinished,
+    required this.stage,
   });
 
   factory LocaleConstructor.fromJson(Map<String, dynamic> json) => _$LocaleConstructorFromJson(json);

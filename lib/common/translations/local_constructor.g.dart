@@ -49,6 +49,7 @@ LocaleConstructor _$LocaleConstructorFromJson(Map<String, dynamic> json) => Loca
       plantDetails: json['plantDetails'] as String,
       plantPublishedPublicly: json['plantPublishedPublicly'] as String,
       stageIsFinished: json['stageIsFinished'] as String,
+      stage: json['stage'] as String,
     );
 
 Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <String, dynamic>{
@@ -59,6 +60,7 @@ Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <S
       'bottomNavigationProfile': instance.bottomNavigationProfile,
       'profileTitle': instance.profileTitle,
       'fieldsTitle': instance.fieldsTitle,
+      'stage': instance.stage,
       'plantsTitle': instance.plantsTitle,
       'myPlantsSubtitle': instance.myPlantsSubtitle,
       'marketPlantsSubtitle': instance.marketPlantsSubtitle,

@@ -44,6 +44,7 @@ class English {
           addStage: 'Add stage',
           plantDetails: 'Plant details',
           plantPublishedPublicly: 'Plant is published publicly',
-          stageIsFinished: 'Stage is finished')
+          stageIsFinished: 'Stage is finished',
+          stage: "Stage")
       .toStringMap();
 }

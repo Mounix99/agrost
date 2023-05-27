@@ -45,6 +45,7 @@ class Ukrainian {
           addStage: 'Додати ще стадію',
           plantDetails: 'Деталі рослини',
           plantPublishedPublicly: 'Рослина знаходиться у відкритому доступі',
-          stageIsFinished: 'Стадія завершена')
+          stageIsFinished: 'Стадія завершена',
+          stage: "Страдія")
       .toStringMap();
 }

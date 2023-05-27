@@ -10,12 +10,12 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plant_icons/plant_icons_data.dart';
 
-import '../../../../common/extensions/duration.dart';
 import '../../../../common/extensions/forms.dart';
 import '../../../../common/theme.dart';
 import '../../../../common/widgets/circular_icon_button.dart';
 import '../../../../common/widgets/reacive_fields/reactive_text_field.dart';
 import '../../../../common/widgets/rotated_dialogs.dart';
+import '../../../../common/widgets/stage_card.dart';
 import '../controllers/add_plant_controller.dart';
 
 class AddPlantView extends GetView<AddPlantController> {
@@ -36,7 +36,7 @@ class AddPlantView extends GetView<AddPlantController> {
                 children: [
                   ..._getPlantFormContent(context, theme),
                   const SizedBox(height: 16),
-                  ...controller.actualStages.map((stage) => _stageCard(theme: theme, stage: stage)),
+                  _stageList(controller.actualStages),
                   const SizedBox(height: 16),
                   if (controller.showStageForm.isTrue) ..._getStageFormContent(context, theme),
                   if (controller.showStageForm.isFalse)
@@ -90,6 +90,18 @@ class AddPlantView extends GetView<AddPlantController> {
             ),
           )),
     );
+  }
+
+  Widget _stageList(List<StageModel> stages) {
+    return ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (_, index) => StageCard(
+            stage: stages.elementAt(index),
+            stageNumber: index + 1,
+            onDeletePressed: () => controller.removeStage(stages.elementAt(index))),
+        separatorBuilder: (_, index) => const SizedBox(height: 8),
+        itemCount: stages.length);
   }
 
   List<Widget> _getPlantFormContent(BuildContext context, ThemeData theme) => [
@@ -363,73 +375,6 @@ class AddPlantView extends GetView<AddPlantController> {
                 ))
             .toList(),
         onChanged: (ctrl) => controller.plantForm.value.markAsDirty(),
-      );
-
-  Widget _stageCard({required ThemeData theme, required StageModel stage}) => Card(
-        shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(28))),
-        elevation: 0,
-        margin: const EdgeInsets.only(bottom: 16),
-        color: theme.colorScheme.onSurface,
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(stage.title, style: theme.textTheme.displaySmall),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(onPressed: () => controller.removeStage(stage), icon: const Icon(PlantIcons.delete_1))
-                    ],
-                  )
-                ],
-              ),
-              const SizedBox(height: 25),
-              if (stage.description?.isNotEmpty ?? false)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      radius: 27,
-                      backgroundColor: theme.colorScheme.surface,
-                      child: const Icon(PlantIcons.edit_2),
-                    ),
-                    const SizedBox(width: 16),
-                    Text(stage.description!,
-                        style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onPrimary)),
-                  ],
-                ),
-              const SizedBox(height: 25),
-              if (stage.durationDelta != null)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      radius: 27,
-                      backgroundColor: theme.colorScheme.surface,
-                      child: const Icon(PlantIcons.calender_1),
-                    ),
-                    const SizedBox(width: 16),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('createStageDuration'.tr, style: theme.textTheme.titleLarge),
-                        const SizedBox(height: 8),
-                        Text(formatDuration(Duration(seconds: stage.durationDelta!)),
-                            style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onPrimary)),
-                      ],
-                    ),
-                  ],
-                ),
-            ],
-          ),
-        ),
       );
 
   void _scrollToError(BuildContext context) {
