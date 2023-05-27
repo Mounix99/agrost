@@ -41,6 +41,9 @@ class English {
           weeks: 'weeks',
           day: 'day',
           days: 'days',
-          addStage: 'Add stage')
+          addStage: 'Add stage',
+          plantDetails: 'Plant details',
+          plantPublishedPublicly: 'Plant is published publicly',
+          stageIsFinished: 'Stage is finished')
       .toStringMap();
 }

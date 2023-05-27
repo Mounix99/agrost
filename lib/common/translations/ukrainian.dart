@@ -42,6 +42,9 @@ class Ukrainian {
           weeks: 'тижні',
           day: 'день',
           days: 'днів',
-          addStage: 'Додати ще стадію')
+          addStage: 'Додати ще стадію',
+          plantDetails: 'Деталі рослини',
+          plantPublishedPublicly: 'Рослина знаходиться у відкритому доступі',
+          stageIsFinished: 'Стадія завершена')
       .toStringMap();
 }

@@ -9,6 +9,8 @@ import '../modules/home/views/plants_view.dart';
 import '../modules/home/views/profile_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/plant/bindings/plant_binding.dart';
+import '../modules/plant/views/plant_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 
@@ -48,6 +50,11 @@ class AppPages {
       name: _Paths.ADD_PLANT,
       page: () => const AddPlantView(),
       binding: AddPlantBinding(),
+    ),
+    GetPage(
+      name: _Paths.PLANT,
+      page: () => const PlantView(),
+      binding: PlantBinding(),
     ),
   ];
 }

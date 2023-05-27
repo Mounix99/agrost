@@ -19,7 +19,7 @@ class FirebaseImageRepositoryImplementation extends ImageRepository {
     final plantImagesRef = storageRef.child("$plantImagePath$fileName.${extension(file.path.toLowerCase())}");
     late String imageUrl;
     try {
-      await plantImagesRef.putFile(file).whenComplete(() => imageUrl = plantImagesRef.fullPath);
+      await plantImagesRef.putFile(file).whenComplete(() async => imageUrl = await plantImagesRef.getDownloadURL());
       return Left(imageUrl);
     } on FirebaseException catch (e) {
       return Right(e.toString());
