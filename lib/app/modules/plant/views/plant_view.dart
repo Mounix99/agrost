@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:plant_icons/plant_icons_data.dart';
 
 import '../../../../common/widgets/circular_icon_button.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/plant_controller.dart';
 
 class PlantView extends GetView<PlantController> {
@@ -21,7 +22,7 @@ class PlantView extends GetView<PlantController> {
           CircularIconButton(
             theme: theme,
             icon: PlantIcons.editSquare,
-            onPressed: () {},
+            onPressed: () => Get.toNamed(Routes.ADD_PLANT, arguments: controller.plant.toJson()),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20),

@@ -35,6 +35,7 @@ extension StageTimeFormatsConverter on StageTimeFormats {
 }
 
 class AddPlantController extends GetxController {
+  final PlantModel? plantModel = PlantModel.fromJson(Get.arguments);
   final PlantsRepository _plantsRepository = Get.find();
   final ImageRepository _imageRepository = Get.find();
   final UserRepository _userRepository = Get.find();
@@ -61,12 +62,13 @@ class AddPlantController extends GetxController {
           FormControl<StageTimeFormats>(value: StageTimeFormats.day, validators: [Validators.required]),
     }).obs;
     plantForm = FormGroup({
-      PlantForm.name.name: FormControl<String>(value: "", validators: [Validators.required]),
-      PlantForm.description.name: FormControl<String?>(),
+      PlantForm.name.name: FormControl<String>(value: plantModel?.title ?? "", validators: [Validators.required]),
+      PlantForm.description.name: FormControl<String?>(value: plantModel?.description ?? ""),
       PlantForm.image.name: FormControl<String?>(),
-      PlantForm.family.name: FormControl<PlantType>(validators: [Validators.required]),
-      PlantForm.soilType.name: FormControl<SoilType>(validators: [Validators.required]),
-      PlantForm.public.name: FormControl<bool>(value: false),
+      PlantForm.family.name: FormControl<PlantType>(validators: [Validators.required], value: plantModel?.plantType),
+      PlantForm.soilType.name:
+          FormControl<SoilType>(validators: [Validators.required], value: plantModel?.soilTypes.first),
+      PlantForm.public.name: FormControl<bool>(value: plantModel?.public ?? false),
       PlantForm.stages.name: FormControl<List<StageModel>?>(value: []),
     }).obs;
   }
