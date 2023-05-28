@@ -1,11 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'local_constructor.g.dart';
+part 'locale_constructor.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.none)
 class LocaleConstructor {
   final String appTitle;
   final String appSubtitle;
+
+  ///Single value;
+  final String stage;
 
   ///Bottom navigation
   final String bottomNavigationFields;
@@ -15,8 +18,6 @@ class LocaleConstructor {
   final String profileTitle;
 
   final String fieldsTitle;
-
-  final String stage;
 
   ///Plant tab
   final String plantsTitle;
@@ -63,6 +64,10 @@ class LocaleConstructor {
   final String plantPublishedPublicly;
   final String stageIsFinished;
 
+  ///Edit plant
+  final String editPlant;
+  final String saveChanges;
+
   LocaleConstructor({
     required this.bottomNavigationFields,
     required this.bottomNavigationPlants,
@@ -107,6 +112,8 @@ class LocaleConstructor {
     required this.plantPublishedPublicly,
     required this.stageIsFinished,
     required this.stage,
+    required this.editPlant,
+    required this.saveChanges,
   });
 
   factory LocaleConstructor.fromJson(Map<String, dynamic> json) => _$LocaleConstructorFromJson(json);

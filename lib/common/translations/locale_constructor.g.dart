@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'local_constructor.dart';
+part of 'locale_constructor.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -50,17 +50,19 @@ LocaleConstructor _$LocaleConstructorFromJson(Map<String, dynamic> json) => Loca
       plantPublishedPublicly: json['plantPublishedPublicly'] as String,
       stageIsFinished: json['stageIsFinished'] as String,
       stage: json['stage'] as String,
+      editPlant: json['editPlant'] as String,
+      saveChanges: json['saveChanges'] as String,
     );
 
 Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <String, dynamic>{
       'appTitle': instance.appTitle,
       'appSubtitle': instance.appSubtitle,
+      'stage': instance.stage,
       'bottomNavigationFields': instance.bottomNavigationFields,
       'bottomNavigationPlants': instance.bottomNavigationPlants,
       'bottomNavigationProfile': instance.bottomNavigationProfile,
       'profileTitle': instance.profileTitle,
       'fieldsTitle': instance.fieldsTitle,
-      'stage': instance.stage,
       'plantsTitle': instance.plantsTitle,
       'myPlantsSubtitle': instance.myPlantsSubtitle,
       'marketPlantsSubtitle': instance.marketPlantsSubtitle,
@@ -96,4 +98,6 @@ Map<String, dynamic> _$LocaleConstructorToJson(LocaleConstructor instance) => <S
       'plantDetails': instance.plantDetails,
       'plantPublishedPublicly': instance.plantPublishedPublicly,
       'stageIsFinished': instance.stageIsFinished,
+      'editPlant': instance.editPlant,
+      'saveChanges': instance.saveChanges,
     };

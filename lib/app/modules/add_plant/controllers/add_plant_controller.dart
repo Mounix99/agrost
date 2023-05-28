@@ -35,7 +35,8 @@ extension StageTimeFormatsConverter on StageTimeFormats {
 }
 
 class AddPlantController extends GetxController {
-  final PlantModel? plantModel = PlantModel.fromJson(Get.arguments);
+  final PlantModel? passedPlantModel = Get.arguments != null ? Get.arguments["plantModel"] : null;
+  final List<StageModel>? passedStages = Get.arguments != null ? Get.arguments["stages"] : null;
   final PlantsRepository _plantsRepository = Get.find();
   final ImageRepository _imageRepository = Get.find();
   final UserRepository _userRepository = Get.find();
@@ -62,15 +63,20 @@ class AddPlantController extends GetxController {
           FormControl<StageTimeFormats>(value: StageTimeFormats.day, validators: [Validators.required]),
     }).obs;
     plantForm = FormGroup({
-      PlantForm.name.name: FormControl<String>(value: plantModel?.title ?? "", validators: [Validators.required]),
-      PlantForm.description.name: FormControl<String?>(value: plantModel?.description ?? ""),
-      PlantForm.image.name: FormControl<String?>(),
-      PlantForm.family.name: FormControl<PlantType>(validators: [Validators.required], value: plantModel?.plantType),
+      PlantForm.name.name: FormControl<String>(value: passedPlantModel?.title ?? "", validators: [Validators.required]),
+      PlantForm.description.name: FormControl<String?>(value: passedPlantModel?.description ?? ""),
+      PlantForm.image.name: FormControl<String?>(value: passedPlantModel?.photoPath),
+      PlantForm.family.name:
+          FormControl<PlantType>(validators: [Validators.required], value: passedPlantModel?.plantType),
       PlantForm.soilType.name:
-          FormControl<SoilType>(validators: [Validators.required], value: plantModel?.soilTypes.first),
-      PlantForm.public.name: FormControl<bool>(value: plantModel?.public ?? false),
+          FormControl<SoilType>(validators: [Validators.required], value: passedPlantModel?.soilTypes.first),
+      PlantForm.public.name: FormControl<bool>(value: passedPlantModel?.public ?? false),
       PlantForm.stages.name: FormControl<List<StageModel>?>(value: []),
     }).obs;
+    if (passedStages?.isNotEmpty ?? false) {
+      actualStages.value = passedStages ?? [];
+      showStageForm.value = false;
+    }
   }
 
   void _nodes() {
@@ -85,11 +91,6 @@ class AddPlantController extends GetxController {
     for (var node in stageFocusNodes.values) {
       node.dispose();
     }
-  }
-
-  @override
-  Future<void> onReady() async {
-    super.onReady();
   }
 
   Future<void> addStage() async {
@@ -112,6 +113,47 @@ class AddPlantController extends GetxController {
     plantForm.value.setVal<List<StageModel>?>(PlantForm.stages, stages);
     stageForm.value.reset();
     stageForm.value.setVal<int>(StageForm.duration, 1);
+  }
+
+  Future<void> save() async {
+    if (passedPlantModel != null) {
+      await editPlant();
+    } else {
+      await createPlant();
+    }
+  }
+
+  Future<void> editPlant() async {
+    final List<StageModel> stages = plantForm.value.val<List<StageModel>?>(PlantForm.stages) ?? [];
+    final PlantModel plant = PlantModel(
+        title: plantForm.value.val<String>(PlantForm.name)!,
+        description: plantForm.value.val<String?>(PlantForm.description),
+        authorDocId: passedPlantModel?.authorDocId ?? await _userRepository.getCurrentUserDocId(),
+        usesByUsersDocId: passedPlantModel?.usesByUsersDocId ?? [await _userRepository.getCurrentUserDocId()],
+        soilTypes: [plantForm.value.val<SoilType>(PlantForm.soilType)!],
+        plantType: plantForm.value.val<PlantType>(PlantForm.family)!,
+        public: plantForm.value.val<bool>(PlantForm.public)!,
+        photoPath: await _uploadImageToStorage(),
+        createDate: passedPlantModel?.createDate ?? DateTime.now(),
+        lastUpdateDate: DateTime.now(),
+        //TODO: parse and increase last last value on each update event
+        version: "0.0.1",
+        stagesLength: stages.length);
+    final Either<String, String?> value =
+        await _plantsRepository.updatePlant(plantModel: plant, plantDocId: plant.plantDocId ?? "");
+    if (value.isLeft && !listEquals(passedStages, stages)) {
+      //TODO: update only stages with changes
+      if (passedStages != null) {
+        for (var stage in passedStages!) {
+          _plantsRepository.deleteStage(plantDocId: plant.plantDocId ?? "", stageDocId: stage.stageDocId ?? "");
+        }
+      }
+      for (var stage in stages) {
+        _plantsRepository.addStage(stageModel: stage.copyWith(plantDocId: plant.plantDocId));
+      }
+    } else {
+      Get.showSnackbar(GetSnackBar(title: value.right));
+    }
   }
 
   Future<void> createPlant() async {
@@ -180,8 +222,16 @@ class AddPlantController extends GetxController {
   }
 
   void removeImage() async {
-    image = null;
-    setImageInBytes();
+    if (image != null) {
+      image = null;
+      if (passedPlantModel?.photoPath != null) {
+        plantForm.value.setVal<String?>(PlantForm.image, passedPlantModel?.photoPath);
+      } else {
+        setImageInBytes();
+      }
+    } else {
+      setImageInBytes();
+    }
   }
 
   void removeStage(StageModel removedStage) async {

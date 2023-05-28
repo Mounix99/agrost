@@ -1,4 +1,4 @@
-import 'local_constructor.dart';
+import 'locale_constructor.dart';
 
 class English {
   Map<String, String> get strings => LocaleConstructor(
@@ -45,6 +45,8 @@ class English {
           plantDetails: 'Plant details',
           plantPublishedPublicly: 'Plant is published publicly',
           stageIsFinished: 'Stage is finished',
-          stage: "Stage")
+          stage: "Stage",
+          editPlant: "Edit plant",
+          saveChanges: "Save changes")
       .toStringMap();
 }

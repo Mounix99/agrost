@@ -26,7 +26,7 @@ class FirebasePlantsRepositoryImplementation extends PlantsRepository {
     final DocumentReference<Object?> plant = await _plantsRef.add(plantModel);
     try {
       final updated = await updatePlant(plantDocId: plant.id, plantModel: plantModel.copyWith(plantDocId: plant.id));
-      if (updated) {
+      if (updated.isLeft) {
         return Left(plant.id);
       } else {
         return const Right(null);
@@ -37,12 +37,13 @@ class FirebasePlantsRepositoryImplementation extends PlantsRepository {
   }
 
   @override
-  Future<bool> updatePlant({required String plantDocId, required PlantModel plantModel}) async {
-    return await _plantsRef
-        .doc(plantDocId)
-        .update(plantModel.toJson())
-        .then((value) => true)
-        .catchError((error) => false);
+  Future<Either<String, String?>> updatePlant({required String plantDocId, required PlantModel plantModel}) async {
+    try {
+      await _plantsRef.doc(plantDocId).update(plantModel.toJson());
+      return const Left("");
+    } catch (error) {
+      return Right(error.toString());
+    }
   }
 
   @override

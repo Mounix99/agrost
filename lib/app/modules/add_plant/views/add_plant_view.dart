@@ -25,7 +25,7 @@ class AddPlantView extends GetView<AddPlantController> {
     final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('createPlantAppBarTitle'.tr),
+        title: Text(controller.passedPlantModel != null ? "editPlant".tr : 'createPlantAppBarTitle'.tr),
       ),
       body: Obx(() => ReactiveForm(
             formGroup: controller.plantForm.value,
@@ -59,9 +59,11 @@ class AddPlantView extends GetView<AddPlantController> {
                     child: primaryElevatedButton(context, onPressed: () {
                       controller.plantForm.value.markAllAsTouched();
                       if (controller.plantForm.value.valid) {
-                        controller.createPlant();
+                        controller.save();
                         Navigator.pop(context);
-                        plantAddedDialog(context);
+                        if (controller.passedPlantModel == null) {
+                          plantAddedDialog(context);
+                        }
                       } else {
                         _scrollToError(context);
                       }
@@ -72,7 +74,7 @@ class AddPlantView extends GetView<AddPlantController> {
                             plantIcon(color: theme.colorScheme.secondary),
                             const SizedBox(width: 9),
                             Text(
-                              'addPlant'.tr,
+                              controller.passedPlantModel != null ? "saveChanges".tr : 'addPlant'.tr,
                               style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.secondary),
                             ),
                             const SizedBox(width: 14),
@@ -189,7 +191,9 @@ class AddPlantView extends GetView<AddPlantController> {
             shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(28))),
             elevation: 0,
             color: theme.colorScheme.onSurface,
-            child: Image.file(File(controller.image!.path))),
+            child: controller.passedPlantModel?.photoPath != null && controller.image == null
+                ? Image.network(controller.passedPlantModel!.photoPath!)
+                : Image.file(File(controller.image!.path))),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
           child: Row(

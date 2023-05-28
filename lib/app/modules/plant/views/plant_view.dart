@@ -22,7 +22,8 @@ class PlantView extends GetView<PlantController> {
           CircularIconButton(
             theme: theme,
             icon: PlantIcons.editSquare,
-            onPressed: () => Get.toNamed(Routes.ADD_PLANT, arguments: controller.plant.toJson()),
+            onPressed: () async => controller.stages.then((stages) =>
+                Get.toNamed(Routes.ADD_PLANT, arguments: {"plantModel": controller.plant, "stages": stages})),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 20),

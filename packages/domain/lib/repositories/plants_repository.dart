@@ -7,7 +7,7 @@ import '../models/plants_api_models/plant_model.dart';
 abstract class PlantsRepository {
   Future<Either<String, String?>> addPlant({required PlantModel plantModel});
 
-  Future<bool> updatePlant({required String plantDocId, required PlantModel plantModel});
+  Future<Either<String, String?>> updatePlant({required String plantDocId, required PlantModel plantModel});
 
   Future<List<PlantModel>> getListOfMyPlants({required List<String>? plantDocIds});
 

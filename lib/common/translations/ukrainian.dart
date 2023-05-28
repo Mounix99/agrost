@@ -1,4 +1,4 @@
-import 'package:agrost/common/translations/local_constructor.dart';
+import 'package:agrost/common/translations/locale_constructor.dart';
 
 class Ukrainian {
   Map<String, String> get strings => LocaleConstructor(
@@ -46,6 +46,8 @@ class Ukrainian {
           plantDetails: 'Деталі рослини',
           plantPublishedPublicly: 'Рослина знаходиться у відкритому доступі',
           stageIsFinished: 'Стадія завершена',
-          stage: "Страдія")
+          stage: "Страдія",
+          editPlant: "Редагувати рослину",
+          saveChanges: "Зберегти зміни")
       .toStringMap();
 }
